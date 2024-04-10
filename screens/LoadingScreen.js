@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import styles from '../style/LoadingScreenStyle';
+
 
 export default function LoadingScreen() {  
   const navigation = useNavigation();
@@ -21,7 +23,7 @@ export default function LoadingScreen() {
     fadeIn();
 
     const timer = setTimeout(() => {
-      navigation.replace('DrawerNavigator');
+      navigation.replace('Login');
     }, 4000);
 
     return () => clearTimeout(timer);
@@ -42,26 +44,3 @@ export default function LoadingScreen() {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff'
-  },
-  image: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-  textContainer: {
-    position: 'absolute',
-    top: 80,
-    left: 30,
-  },
-  text: {
-    color: '#213A5C',
-    fontSize: 28,
-    fontWeight: 'bold',
-  },
-});

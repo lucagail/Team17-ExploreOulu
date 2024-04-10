@@ -4,20 +4,20 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import { Linking } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Linking, View, Image } from 'react-native';
 import LoadingScreen from './screens/LoadingScreen';
 import Home from './screens/Home';
 import Hotels from './screens/Hotels';
 import Sightseeing from './screens/Sightseeing';
 import Restaurants from './screens/Restaurants';
 import Map from './screens/Map';
-import PeoplesChoice from './screens/PeoplesChoice';
-import OneDayInOulu from './screens/OneDayInOulu';
 import AboutOulu from './screens/AboutOulu';
 import ContactUs from './screens/ContactUs';
 import Favorites from './screens/Favorites';
 import Styles from './style/Styles';
+import Login from './screens/Login';
+import SignUp from './screens/SignUp'
+import Profile from './screens/Profile';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -60,15 +60,16 @@ const DrawerNavigator = () => (
   <Drawer.Navigator 
     initialRouteName="Home"
     screenOptions={{
+      swipeEnabled: false,
       drawerStyle: {
-        backgroundColor: '#213A5C', //Background color drawer navigation
+        backgroundColor: '#213A5C',
         width: 240,
       },
       drawerActiveTintColor: Styles.activeDrawerItem.color, 
       drawerInactiveTintColor: Styles.drawerItem.color,
-      headerTintColor: '#D6C9B6', // Color menu icon
-      
-      }}>
+      headerTintColor: '#D6C9B6', 
+      }}
+      >
     <Drawer.Screen name="Home" component={Home} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />, 
           headerStyle: { backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6'},
           drawerIcon: ({ color }) => <Ionicons name="home" size={24} color={color} />}} />
@@ -92,29 +93,26 @@ const DrawerNavigator = () => (
     <Drawer.Screen name="Map" component={Map} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="location" size={24} color={color} />}}/>
-
-    <Drawer.Screen name="OneDayInOulu" component={OneDayInOulu} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
-          drawerLabel: '1 Day in Oulu',
-          headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
-          drawerIcon: ({ color }) => <MaterialCommunityIcons name="hours-24" size={24} color={color} />}}/> 
-
-    <Drawer.Screen name="PeoplesChoice" component={PeoplesChoice} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
-          drawerLabel: "PeoplesChoice",
-          headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
-          drawerIcon: ({ color }) => <Ionicons name="heart" size={24} color={color} />}}/> 
   
-    
     <Drawer.Screen name="AboutOulu" component={AboutOulu} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />, 
           drawerLabel: 'About Oulu',
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="information-circle" size={24} color={color} />}}/> 
- 
+    
+    <Drawer.Screen name="Favorites" component={Favorites} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+          drawerLabel: 'Favorites',
+          headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
+          drawerIcon: ({ color }) => <Ionicons name="heart" size={24} color={color} />}}/>
 
-  <Drawer.Screen name="ContactUs" component={ContactUs} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+    <Drawer.Screen name="ContactUs" component={ContactUs} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
           drawerLabel: 'Contact us',
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="mail" size={24} color={color} />}}/> 
-
+    
+    <Drawer.Screen name="Profile" component={Profile} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+          drawerLabel: 'My Profile',
+          headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
+          drawerIcon: ({ color }) => <Ionicons name="person-circle" size={24} color={color} />}}/> 
 
   </Drawer.Navigator>
 );
@@ -123,16 +121,19 @@ const App = () => {
   return (
     <NavigationContainer>
     <Stack.Navigator initialRouteName="LoadingScreen" screenOptions={{ headerShown: false}}>
-      <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
-      <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
-      <Stack.Screen name="Hotels" component={Hotels} /> 
-      <Stack.Screen name="Sightseeing" component={Sightseeing} /> 
-      <Stack.Screen name="Restaurants" component={Restaurants} /> 
-      <Stack.Screen name="Tours" component={Tours} /> 
-      <Stack.Screen name="Map" component={Map} /> 
-      <Stack.Screen name="OneDayInOulu" component={OneDayInOulu} /> 
-      <Stack.Screen name="PeoplesChoice" component={PeoplesChoice} /> 
-      <Stack.Screen name="AboutOulu" component={AboutOulu} /> 
+      <Stack.Screen name="LoadingScreen" component={LoadingScreen} options={{ gestureEnabled: false }}/>
+      <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} options={{ gestureEnabled: false }}/>
+      <Stack.Screen name="Home" component={Home} options={{ gestureEnabled: false }}/>
+      <Stack.Screen name="Login" component={Login} options={{ gestureEnabled: false }}/>
+      <Stack.Screen name="SignUp" component={SignUp} options={{ gestureEnabled: false }}/>
+      <Stack.Screen name="Profile" component={Profile} options={{ gestureEnabled: false }}/>
+      <Stack.Screen name="Hotels" component={Hotels} options={{ gestureEnabled: false }}/> 
+      <Stack.Screen name="Sightseeing" component={Sightseeing} options={{ gestureEnabled: false }}/> 
+      <Stack.Screen name="Restaurants" component={Restaurants} options={{ gestureEnabled: false }}/> 
+      <Stack.Screen name="Tours" component={Tours} options={{ gestureEnabled: false }}/> 
+      <Stack.Screen name="Map" component={Map} options={{ gestureEnabled: false }}/> 
+      <Stack.Screen name="AboutOulu" component={AboutOulu} options={{ gestureEnabled: false }}/> 
+      <Stack.Screen name="Favorites" component={Favorites} options={{ gestureEnabled: false }}/> 
     </Stack.Navigator>
   </NavigationContainer>
   );

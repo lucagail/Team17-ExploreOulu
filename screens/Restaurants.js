@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native';
-import { Card, Title, Text } from 'react-native-paper';
+import { StyleSheet, ScrollView, View, Modal, Image, TouchableOpacity } from 'react-native';
+import { Card, Title, Text, Button } from 'react-native-paper';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import styles from '../style/RestaurantsStyle';
 
 export default function Restaurants() {
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
   const isFocused = useIsFocused();
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+
 
   const handleBackPress = () => {
     navigation.navigate('Home');
@@ -23,46 +27,64 @@ export default function Restaurants() {
     }
   }, [isFocused]);
 
+  const openModal = (restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+  const openMapWithAddress = (location) => {
+    navigation.navigate('Map', { location });
+  };
+
   const restaurants = [
     {
-      name: 'Restaurant 1 (10-20€)',
-      description: 'Description of Restaurant 1 for 10-20€ category.',
-      location: 'Location 1',
+      name: 'Pizzeria Da Mario',
+      price: '10-20€',
+      description: "Oulu's oldest pizzeria, Da Mario, serves delicious pizzas and a fresh salad from its wide selection as an appetizer. We focus on quality and serve only the best! The best pizza in Oulu since 1982!",
+      location: 'Torikatu 24, 90100 Oulu',
       imageUri: 'https://via.placeholder.com/300'
     },
     {
-      name: 'Restaurant 2 (10-20€)',
-      description: 'Description of Restaurant 2 for 10-20€ category.',
-      location: 'Location 2',
+      name: 'Pancho Villa',
+      price: '10-20€',
+      description: "Good food lovers, welcome to enjoy great Mexican flavours and good vibes! We offer generous portions of legendary burgers, juicy steaks, fresh salads, fajitas, burritos and other Mexican delicacies. We also have a special menu for kids. Welcome to our atmospheric family restaurant!",
+      location: 'Kauppurienkatu 6-8, 90100 Oulu',
       imageUri: 'https://via.placeholder.com/300'
     },
     {
-      name: 'Restaurant 1 (20-30€)',
-      description: 'Description of Restaurant 1 for 20-30€ category.',
-      location: 'Location 1',
+      name: 'Alfred kitchen & bar',
+      price: '20-30€',
+      description: "Welcome to Alfred's Nomadic Kitchen, where the spirit of adventure meets the warmth of home. Inspired by a lifetime of travel and culinary exploration, Alfred brings you a menu filled with tales from distant lands and flavours perfected over decades. Settle in for a journey of taste with cherished recipes from ship mess halls and a touch of hometown comfort from Oulu. Join us for a dining experience where good food, great drinks, and heartfelt hospitality await. Let Alfred's wanderlust awaken your taste buds.",
+      location: 'Pakkahuoneenkatu 24, 90100 Oulu',
       imageUri: 'https://via.placeholder.com/300'
     },
     {
-      name: 'Restaurant 2 (20-30€)',
-      description: 'Description of Restaurant 2 for 20-30€ category.',
-      location: 'Location 2',
+      name: 'Fuchka',
+      price: '20-30€',
+      description: "Are you searching for a different culinary experience? Welcome to FUCHKA, the only Bangladeshi restaurant in Finland, located in Oulu. Fuchka means delicious Bangladeshi finger food that local people typically buy from the street bazaars. In addition to Fuchka, we also offer many other authentic Bangladeshi dishes like Samosa, Signara and Alu Chop- accompanied with a freshly baked, flavoured Bangladeshi bread.",
+      location: 'Nummikatu 32, 90100 Oulu',
       imageUri: 'https://via.placeholder.com/300'
     },
     {
-      name: 'Restaurant 1 (30-40€)',
-      description: 'Description of Restaurant 1 for 30-40€ category.',
-      location: 'Location 1',
+      name: 'Sokeri-Jussin Kievari',
+      price: '30-50€',
+      description: "Sokeri-Jussi Tavern is an atmospheric restaurant located in a timber storehouse in Pikisaari. The Tevern kitchen creates a delicious Finnish menu out of pure domestic ingredients flovoured with the delicacies of the season. Local food is naturally the cornerstone of the Tavern cuisine.",
+      location: 'Pikisaarentie 2, 90100 Oulu',
       imageUri: 'https://via.placeholder.com/300'
     },
     {
-      name: 'Restaurant 2 (30-40€)',
-      description: 'Description of Restaurant 2 for 30-40€ category.',
-      location: 'Location 2',
+      name: 'Uleaborg 1881',
+      price: '30-50€',
+      description: "Since 2003, we have wanted to present our own seasonal personalities, not forgetting the international classics, united by an open-mindedness respectful of tradition, both in the kitchen and in the dining room. In our work, we do not just stare at the strawberries of our own country, but also taste blueberries from the rest of the world, and the compass of our activity points strongly in the direction of French classic cuisine.",
+      location: 'Aittatori 4-5, 90100 Oulu',
       imageUri: 'https://via.placeholder.com/300'
     }
   ];
 
-  const filteredRestaurants = selectedCategory === 'All' ? restaurants : restaurants.filter(restaurant => restaurant.name.includes(selectedCategory));
+  const filteredRestaurants = selectedCategory === 'All' ? restaurants : restaurants.filter(restaurant => restaurant.price.includes(selectedCategory));
 
   return (
     <ScrollView style={styles.container}>
@@ -75,8 +97,36 @@ export default function Restaurants() {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Restaurants</Text>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            {selectedRestaurant && (
+              <>
+                <Text style={styles.modalTitle}>{selectedRestaurant.name}</Text>                
+                <Image
+                  style={styles.modalImage}
+                  source={{ uri: selectedRestaurant.imageUri }}
+                />
+                <Text style={styles.modalPrice}>{selectedRestaurant.price}</Text>
+                <Text style={styles.modalDescription}>{selectedRestaurant.description}</Text>
+                <TouchableOpacity onPress={() => { 
+                openMapWithAddress(selectedRestaurant.location);
+                closeModal();}}>
+                <Text style={styles.modalLocation}>{selectedRestaurant.location}</Text>
+                </TouchableOpacity>
+                <Button onPress={closeModal} style={styles.closeButton} textColor="#213A5C">Close</Button>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
       <View style={styles.categoriesContainer}>
-        {['All', '10-20€', '20-30€', '30-40€'].map(category => (
+        {['All', '10-20€', '20-30€', '30-50€'].map(category => (
           <TouchableOpacity
             key={category}
             style={[styles.categoryButton, selectedCategory === category ? styles.selectedCategory : null]}
@@ -90,85 +140,16 @@ export default function Restaurants() {
           <Card.Cover source={{ uri: restaurant.imageUri }} />
           <Card.Content>
             <Title style={styles.name}>{restaurant.name}</Title>
-            <Text style={styles.description}>{restaurant.description}</Text>
-            <Text style={styles.location}>{restaurant.location}</Text>
+            <Text style={styles.description}>{restaurant.price}</Text>
+            <TouchableOpacity onPress={() => openMapWithAddress(restaurant.location)}>
+                  <Text style={styles.location}>{restaurant.location}</Text>
+              </TouchableOpacity>
           </Card.Content>
+          <TouchableOpacity onPress={() => openModal(restaurant)} style={styles.plusButton}>
+            <Ionicons name="add-circle" size={24} color="#213A5C" />
+          </TouchableOpacity>
         </Card>
       ))}
     </ScrollView>
   );
-}
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff'
-  },
-  card: {
-    marginVertical: 12,
-    marginHorizontal: 20,
-  },
-  location: {
-    fontSize: 16,
-    marginTop: 8,
-    textAlign: 'right'
-  },
-  name: {
-    color: '#213A5C',
-  },
-  description: {
-    fontSize: 14,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginVertical: 12,
-    marginHorizontal: 20,
-  },
-  backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  backText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#213A5C',
-    marginLeft: 5,
-  },
-  titleContainer: {
-    marginBottom: 10,
-    marginLeft: 20
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#213A5C',
-  },
-  categoriesContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
-    marginHorizontal: 20
-  },
-  categoryButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#213A5C',
-  },
-  selectedCategory: {
-    backgroundColor: '#213A5C',
-  },
-  categoryText: {
-    color: '#213A5C',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  selectedCategoryText: {
-    color: '#D6C9B6',
-    fontSize: 14,
-    fontWeight: 'bold',
-  }
-});
+}  
