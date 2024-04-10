@@ -8,7 +8,7 @@ import {
   updateEmail,
   updatePassword } from 'firebase/auth';
 import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
-import { auth, db, USERS_REF, TODOS_REF, FAVORITES_REF } from '/Users/lucagail/Team17-ExploreOulu/firebase/Config.js';
+import { auth, db, USERS_REF, FAVORITES_REF } from '../firebase/Config.js';
 
 export const signUp = async (nickname, email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)

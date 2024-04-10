@@ -32,7 +32,7 @@ export default function LoadingScreen() {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={require('/Users/lucagail/Team17-ExploreOulu/assets/Oulu_1.jpg')}
+        source={require('../assets/Oulu_1.jpg')}
         resizeMode="cover"
         style={[styles.image, { opacity: fadeAnim }]}
       />

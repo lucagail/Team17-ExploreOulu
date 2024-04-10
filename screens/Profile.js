@@ -5,7 +5,7 @@ import { auth, db, USERS_REF } from '../firebase/Config';
 import { changePassword, logout, removeUser } from '../components/Auth';
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { MaterialIcons } from '@expo/vector-icons';
-import styles from '/Users/lucagail/Team17-ExploreOulu/style/style.js';
+import styles from '../style/style.js';
 
 
 // deleting account einfügen (p.16)

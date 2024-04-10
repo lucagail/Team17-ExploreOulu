@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Alert, Button, Pressable, SafeAreaView } from 'react-native';
-import { logout, signUp } from '/Users/lucagail/Team17-ExploreOulu/components/Auth.js';
+import { logout, signUp } from '../components/Auth.js';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '/Users/lucagail/Team17-ExploreOulu/firebase/Config.js';
+import { auth } from '../firebase/Config.js';
 import { MaterialIcons } from '@expo/vector-icons';
-import styles from '/Users/lucagail/Team17-ExploreOulu/style/style.js';
+import styles from '../style/style.js';
 
 export default function SignUp({ navigation }) {
 

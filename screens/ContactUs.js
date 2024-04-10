@@ -38,7 +38,7 @@ const ContactUs = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Contact Us</Text>
       </View>
-      <Image source={require('/Users/lucagail/Team17-ExploreOulu/assets/Logo_transparent.png')} style={styles.image} />
+      <Image source={require('../assets/Logo_transparent.png')} style={styles.image} />
       <Text style={styles.text}>Feel free to contact us for any inquiries and we will answer your questions:</Text>
       <TouchableOpacity onPress={handleEmail} style={styles.emailContainer}>
         <MaterialIcons name="email" size={24} color="white" style={styles.emailIcon} />
