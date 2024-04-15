@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-container: {
+  container: {
     flex: 1,
     backgroundColor: '#ffffff'
   },
@@ -10,6 +10,13 @@ container: {
     fontWeight: 'bold',
     marginVertical: 12,
     marginHorizontal: 20,
+  },
+  subheader: {
+   marginTop: 10,
+   marginBottom: 10,
+   fontSize: 20, 
+   fontWeight: 'bold',
+   color: '#213A5C',
   },
   backButton: {
     flexDirection: 'row',
@@ -40,6 +47,7 @@ container: {
   sectionText: {
     fontSize: 16,
     lineHeight: 22,
+    textAlign: 'justify', 
   },
   imageSection: {
     backgroundColor: '#fff',
@@ -65,4 +73,4 @@ container: {
     height: 200,
     borderRadius: 10,
   },
-});
+  });

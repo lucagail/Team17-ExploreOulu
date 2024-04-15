@@ -22,5 +22,5 @@ const auth = initializeAuth(app, {
 export { auth };
 
 
-export const FAVORITES_REF = "users";
+export const FAVORITES_REF = "favorites";
 export const USERS_REF = "users";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Modal, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Modal, Image, TouchableOpacity } from 'react-native';
 import { Card, Title, Text, Button } from 'react-native-paper';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,7 +11,6 @@ export default function Restaurants() {
   const isFocused = useIsFocused();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-
 
   const handleBackPress = () => {
     navigation.navigate('Home');
@@ -144,10 +143,13 @@ export default function Restaurants() {
             <TouchableOpacity onPress={() => openMapWithAddress(restaurant.location)}>
                   <Text style={styles.location}>{restaurant.location}</Text>
               </TouchableOpacity>
+              <View style={styles.cardFooter}>
+              <TouchableOpacity onPress={() => openModal(restaurant)} style={styles.plusButton}>
+                <Ionicons name="add-circle" size={30} color="#213A5C" />
+              </TouchableOpacity>
+              </View>
           </Card.Content>
-          <TouchableOpacity onPress={() => openModal(restaurant)} style={styles.plusButton}>
-            <Ionicons name="add-circle" size={24} color="#213A5C" />
-          </TouchableOpacity>
+          
         </Card>
       ))}
     </ScrollView>

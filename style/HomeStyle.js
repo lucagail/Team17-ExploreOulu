@@ -41,7 +41,6 @@ container: {
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'left',
-    
   },
   titleContainerRight: {
     position: 'absolute',
@@ -57,8 +56,7 @@ container: {
     color: '#213A5C',
     fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'right',
-    
+    textAlign: 'right', 
   },
   header: {
     fontSize: 24,

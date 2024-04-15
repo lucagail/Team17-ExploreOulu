@@ -10,7 +10,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
       },
       textLoading: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: "center",
         color: '#213A5C',
@@ -27,13 +27,13 @@ export default StyleSheet.create({
         width: 100,
       },
       title: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: "center",
         padding: 10,
       },
       goText: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: "center",
         color: '#213A5C',

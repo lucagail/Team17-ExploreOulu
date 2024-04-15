@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 import { Text, View, Pressable, Button, TextInput, Alert, SafeAreaView } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db, USERS_REF } from '../firebase/Config';
-import { changePassword, logout, removeUser } from '../components/Auth';
-import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { changePassword, logout, removeUser, updateEmailAddress } from '../components/Auth';
+import { collection, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { MaterialIcons } from '@expo/vector-icons';
-import styles from '../style/style.js';
+import styles from '../style/ProfileStyle.js';
 
-
-// deleting account einfügen (p.16)
 export default function MyAccount({ navigation }) {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,6 +14,7 @@ export default function MyAccount({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [confirmDelete, setConfirmDelete] = useState('');
   
     useEffect(() => {
       onAuthStateChanged(auth, async (user) => {
@@ -74,6 +73,17 @@ export default function MyAccount({ navigation }) {
       }
     };
   
+    const handlePressDelete = () => {
+      if (confirmDelete !== "DELETE") {
+        Alert.alert('You must type DELETE to confirm.');
+      }
+      else {
+        removeUser();
+        setConfirmDelete('');
+        logout();
+        navigation.navigate('Login');
+      }
+    }
   
     if (!isLoggedIn) {
       return (
@@ -114,12 +124,6 @@ export default function MyAccount({ navigation }) {
             style={styles.myAccountTextInput}
             onChangeText={setNickname}
           />
-          <Text style={styles.myAccountLabel}>Email</Text>
-          <TextInput
-            value={email}
-            style={styles.myAccountTextInput}
-            onChangeText={setEmail}
-            />
           <View style={styles.buttonStyle}>
             <Button 
               title="Update"
@@ -148,6 +152,23 @@ export default function MyAccount({ navigation }) {
               onPress={handlePressChangePw}
               color= '#D6C9B6' />
           </View>
+          <Text style={styles.myAccountSubheader}>Delete account</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Type DELETE here to confirm"
+          value={confirmDelete}
+          onChangeText={(confirmDelete) => setConfirmDelete(confirmDelete)}
+          autoCapitalize="characters"
+        />
+        <View style={styles.buttonStyle}>
+          <Button
+            title="Delete account"
+            color="red"
+            onPress={() => handlePressDelete()} />
+        </View>
+        <Text style={styles.infoText}>
+          Your data will be removed from the database!
+        </Text>
           
         </SafeAreaView>
       );

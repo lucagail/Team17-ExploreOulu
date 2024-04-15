@@ -69,7 +69,6 @@ export const changePassword = async (password) => {
 }
 
 export const resetPassword = async (email) => {
-  auth.languageCode = 'fi'; 
   await sendPasswordResetEmail(auth, email)
   .then(() => {
     console.log("Password reset email has been sent.");
@@ -82,9 +81,8 @@ export const resetPassword = async (email) => {
 }
 
 //neu
-
 export const removeUser = async () => {
-  deleteTodoDocuments();
+  deleteFavoriteDocuments();
   deleteUserDocument();
   deleteUser(auth.currentUser)
   .then(() => {
@@ -95,10 +93,21 @@ export const removeUser = async () => {
   });
 }
 
-const deleteTodoDocuments = async () => {
+const removeFavorite = async (hotelId) => {
+  try {
+    const subColRef = 
+      collection(db, USERS_REF, auth.currentUser.uid, 'hotels', hotelId);
+    await deleteDoc(doc(subColRef, hotelId));
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
+
+const deleteFavoriteDocuments = async () => {
   let unsubscribe;
   const subColRef = collection(
-    db, USERS_REF, auth.currentUser.uid, FAVORITES_REF);
+    db, USERS_REF, auth.currentUser.uid, 'hotels');
   unsubscribe = onSnapshot(subColRef, (querySnapshot) => {
     querySnapshot.docs.map(doc => {
       removeFavorite(doc.id)
@@ -106,20 +115,8 @@ const deleteTodoDocuments = async () => {
   })
   unsubscribe();
 }
-
-const removeFavorite = async (id) => {
-  try {
-    const subColRef = 
-      collection(db, USERS_REF, auth.currentUser.uid, FAVORITES_REF);
-    await deleteDoc(doc(subColRef, id));
-  }
-  catch (error) {
-    console.log(error.message);
-  }
-}
-
 const deleteUserDocument = async () => {
-  await deleteDoc(doc(db, USERS_REF, auth.currentUser.uid))
+  await deleteDoc(db, USERS_REF, auth.currentUser.uid)
   .then(() => {
     console.log("User document was removed.");
   }).catch((error) => {

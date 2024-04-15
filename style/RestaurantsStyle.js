@@ -117,4 +117,10 @@ export default StyleSheet.create({
       closeButton: {
         marginTop: 10,
       },
+      cardFooter: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginTop: 10,
+      },
     });

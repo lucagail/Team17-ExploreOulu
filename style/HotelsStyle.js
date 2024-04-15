@@ -75,7 +75,7 @@ export default StyleSheet.create({
       modalLocation: {
         fontStyle: 'italic',
         fontSize: 14,
-        marginBottom: 5,
+        marginBottom: 10,
         textAlign: 'right'
       },
       modalDescription: {
@@ -114,5 +114,10 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
       },
-
+      cardFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 10,
+      },
     });

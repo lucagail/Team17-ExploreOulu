@@ -4,7 +4,7 @@ import { logout, signUp } from '../components/Auth.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/Config.js';
 import { MaterialIcons } from '@expo/vector-icons';
-import styles from '../style/style.js';
+import styles from '../style/SignupStyle.js';
 
 export default function SignUp({ navigation }) {
 

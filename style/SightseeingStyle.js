@@ -86,6 +86,12 @@ export default StyleSheet.create({
       closeButton: {
         marginTop: 10
       },
+      cardImage: {
+        width: '100%',
+        height: 200,
+        resizeMode: 'cover',
+        borderRadius: 10,
+      },
       cardItem: {
         marginBottom: 20,
         position: 'relative',
@@ -99,5 +105,11 @@ export default StyleSheet.create({
         elevation: 4,
         zIndex: 1,
         padding: 5
-      }
+      },
+      cardFooter: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginTop: 10,
+      },
     });
