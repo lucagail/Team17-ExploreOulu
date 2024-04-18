@@ -5,28 +5,13 @@ import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/MapStyle';
-
+import hotelsData from "../data/hotelsData.json";
+import restaurantsData from "../data/restaurantsData.json";
 
 const INITIAL_LATITUDE = 65.0121;
 const INITIAL_LONGITUDE = 25.4651;
 const INITIAL_LATITUDE_DELTA = 0.0922;
 const INITIAL_LONGITUDE_DELTA = 0.0421;
-
-const hotels = [
-  { title: 'Radisson Blue Hotel', location: 'Hallituskatu 1, 90100 Oulu', coordinates: { latitude: 65.01541, longitude: 25.46726 } },
-  { title: 'Lapland Hotels Oulu', location: 'Kirkkokatu 3, 90100 Oulu', coordinates: { latitude: 65.01538, longitude: 25.47680 } },
-  { title: 'Best Western Hotel Apollo', location: 'Asemakatu 31-33, 90100 Oulu', coordinates: { latitude: 65.01263, longitude: 25.47976 } },
-  { title: 'Green Star Hotel', location: 'Uusikatu 26, 90100 Oulu', coordinates: { latitude: 65.01149, longitude: 25.47478 } }
-];
-
-const restaurants = [
-  { title: 'Pizzeria Da Mario', location: 'Torikatu 24, 90100 Oulu', coordinates: { latitude: 65.01176, longitude: 25.46707 } },
-  { title: 'Pancho Villa', location: 'Kauppurienkatu 6-8, 90100 Oulu', coordinates: { latitude: 65.01248, longitude: 25.46716 } },
-  { title: 'Alfred kitchen & bar', location: 'Pakkahuoneenkatu 24, 90100 Oulu', coordinates: { latitude: 65.01127, longitude: 25.47623 } },
-  { title: 'Fuchka', location: 'Nummikatu 32, 90100 Oulu', coordinates: { latitude: 65.00820, longitude: 25.46643 } },
-  { title: 'Sokeri-Jussin Kievari', location: 'Pikisaarentie 2, 90100 Oulu', coordinates: { latitude: 65.01697, longitude: 25.45937 } },
-  { title: 'Uleaborg 1881', location: 'Aittatori 4-5, 90100 Oulu', coordinates: { latitude: 65.01345, longitude: 25.46277 } }
-];
 
 const sightseeing = [
   { title: 'Market Square and Surroundings', location: 'Kauppatori, 90100 Oulu', coordinates: { latitude: 65.01349, longitude: 25.46451 } },
@@ -116,16 +101,16 @@ export default function Map() {
             longitudeDelta: INITIAL_LONGITUDE_DELTA
           }}
         >
-          {hotels.map((hotel, index) => (
+          {hotelsData.hotels.map((hotel, index) => (
             <Marker
               pinColor='#213A5C'
               key={index}
               coordinate={hotel.coordinates}
-              title={hotel.title}
+              title={hotel.name}
             >
               <Callout>
                 <View style={styles.calloutContainer}>
-                  <Text style={styles.title}>{hotel.title}</Text>
+                  <Text style={styles.title}>{hotel.name}</Text>
                   <TouchableOpacity onPress={() => openMapsApp(hotel.coordinates.latitude, hotel.coordinates.longitude)}>
                     <Text style={styles.goText}>Go</Text>
                   </TouchableOpacity>
@@ -133,16 +118,16 @@ export default function Map() {
               </Callout>
             </Marker>
           ))}
-          {restaurants.map((restaurants, index) => (
+          {restaurantsData.restaurants.map((restaurants, index) => (
             <Marker
               pinColor='#213A5C'
               key={index}
               coordinate={restaurants.coordinates}
-              title={restaurants.title}
+              title={restaurants.name}
             >
               <Callout>
                 <View style={styles.calloutContainer}>
-                  <Text style={styles.title}>{restaurants.title}</Text>
+                  <Text style={styles.title}>{restaurants.name}</Text>
                   <TouchableOpacity onPress={() => openMapsApp(restaurants.coordinates.latitude, restaurants.coordinates.longitude)}>
                     <Text style={styles.goText}>Go</Text>
                   </TouchableOpacity>

@@ -16,6 +16,8 @@ export default StyleSheet.create({
         textAlign: 'right'
       },
       name: {
+        fontSize: 20,
+        fontWeight: 'bold',
         color: '#213A5C',
       },
       description: {
@@ -119,7 +121,7 @@ export default StyleSheet.create({
       },
       cardFooter: {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 10,
       },

@@ -4,6 +4,10 @@ import { Card, Title, Text, Button } from 'react-native-paper';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/RestaurantsStyle';
+import restaurantsData from "../data/restaurantsData.json";
+import { doc, setDoc, deleteDoc, collection, onSnapshot } from "firebase/firestore";
+import { db, USERS_REF, auth } from '../firebase/Config.js';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function Restaurants() {
   const navigation = useNavigation();
@@ -11,6 +15,68 @@ export default function Restaurants() {
   const isFocused = useIsFocused();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    let unsubscribe;
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+          const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'restaurants');
+          unsubscribe = onSnapshot(subColRef, (querySnapshot) => {
+            setFavorites(querySnapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            })))
+          })
+          }
+          else {
+            setIsLoggedIn(false);
+            unsubscribe();
+          }
+        });
+        return () => {
+          unsubscribe();
+        }
+      }, []);
+
+  const addToFavorites = async (restaurant) => {
+    try {
+      if (auth.currentUser) {
+        const subColRef = doc(db, USERS_REF, auth.currentUser.uid, 'restaurants', restaurant.id);
+        await setDoc(subColRef, {
+          id: restaurant.id,
+          name: restaurant.name,
+          location: restaurant.location,
+          image: restaurant.imageUri
+        });
+        console.log("Restaurant added to favorites");
+      } else {
+        console.log("User is not logged in");
+      }
+    } catch (error) {
+      console.error("Error when adding restaurant to favorites", error);
+    }
+  };
+
+  const removeFromFavorites = async (restaurantId) => {
+    try {
+      if (auth.currentUser) {
+        const subColRef = doc(db, USERS_REF, auth.currentUser.uid, 'restaurants', restaurantId);
+        await deleteDoc(subColRef);
+        console.log("Restaurant successfully removed from favorites");
+      } else {
+        console.log("User is not logged in");
+      }
+    } catch (error) {
+      console.error("Error when removing restaurant from favorites", error);
+    }
+  };
+
+  const isFavorite = (restaurantId) => {
+    return favorites.some(favorite => favorite.id === restaurantId);
+  };
 
   const handleBackPress = () => {
     navigation.navigate('Home');
@@ -38,52 +104,7 @@ export default function Restaurants() {
     navigation.navigate('Map', { location });
   };
 
-  const restaurants = [
-    {
-      name: 'Pizzeria Da Mario',
-      price: '10-20€',
-      description: "Oulu's oldest pizzeria, Da Mario, serves delicious pizzas and a fresh salad from its wide selection as an appetizer. We focus on quality and serve only the best! The best pizza in Oulu since 1982!",
-      location: 'Torikatu 24, 90100 Oulu',
-      imageUri: 'https://via.placeholder.com/300'
-    },
-    {
-      name: 'Pancho Villa',
-      price: '10-20€',
-      description: "Good food lovers, welcome to enjoy great Mexican flavours and good vibes! We offer generous portions of legendary burgers, juicy steaks, fresh salads, fajitas, burritos and other Mexican delicacies. We also have a special menu for kids. Welcome to our atmospheric family restaurant!",
-      location: 'Kauppurienkatu 6-8, 90100 Oulu',
-      imageUri: 'https://via.placeholder.com/300'
-    },
-    {
-      name: 'Alfred kitchen & bar',
-      price: '20-30€',
-      description: "Welcome to Alfred's Nomadic Kitchen, where the spirit of adventure meets the warmth of home. Inspired by a lifetime of travel and culinary exploration, Alfred brings you a menu filled with tales from distant lands and flavours perfected over decades. Settle in for a journey of taste with cherished recipes from ship mess halls and a touch of hometown comfort from Oulu. Join us for a dining experience where good food, great drinks, and heartfelt hospitality await. Let Alfred's wanderlust awaken your taste buds.",
-      location: 'Pakkahuoneenkatu 24, 90100 Oulu',
-      imageUri: 'https://via.placeholder.com/300'
-    },
-    {
-      name: 'Fuchka',
-      price: '20-30€',
-      description: "Are you searching for a different culinary experience? Welcome to FUCHKA, the only Bangladeshi restaurant in Finland, located in Oulu. Fuchka means delicious Bangladeshi finger food that local people typically buy from the street bazaars. In addition to Fuchka, we also offer many other authentic Bangladeshi dishes like Samosa, Signara and Alu Chop- accompanied with a freshly baked, flavoured Bangladeshi bread.",
-      location: 'Nummikatu 32, 90100 Oulu',
-      imageUri: 'https://via.placeholder.com/300'
-    },
-    {
-      name: 'Sokeri-Jussin Kievari',
-      price: '30-50€',
-      description: "Sokeri-Jussi Tavern is an atmospheric restaurant located in a timber storehouse in Pikisaari. The Tevern kitchen creates a delicious Finnish menu out of pure domestic ingredients flovoured with the delicacies of the season. Local food is naturally the cornerstone of the Tavern cuisine.",
-      location: 'Pikisaarentie 2, 90100 Oulu',
-      imageUri: 'https://via.placeholder.com/300'
-    },
-    {
-      name: 'Uleaborg 1881',
-      price: '30-50€',
-      description: "Since 2003, we have wanted to present our own seasonal personalities, not forgetting the international classics, united by an open-mindedness respectful of tradition, both in the kitchen and in the dining room. In our work, we do not just stare at the strawberries of our own country, but also taste blueberries from the rest of the world, and the compass of our activity points strongly in the direction of French classic cuisine.",
-      location: 'Aittatori 4-5, 90100 Oulu',
-      imageUri: 'https://via.placeholder.com/300'
-    }
-  ];
-
-  const filteredRestaurants = selectedCategory === 'All' ? restaurants : restaurants.filter(restaurant => restaurant.price.includes(selectedCategory));
+  const filteredRestaurants = selectedCategory === 'All' ? restaurantsData.restaurants : restaurantsData.restaurants.filter(restaurant => restaurant.price.includes(selectedCategory));
 
   return (
     <ScrollView style={styles.container}>
@@ -109,7 +130,7 @@ export default function Restaurants() {
                 <Text style={styles.modalTitle}>{selectedRestaurant.name}</Text>                
                 <Image
                   style={styles.modalImage}
-                  source={{ uri: selectedRestaurant.imageUri }}
+                  source={selectedRestaurant.imageUri}
                 />
                 <Text style={styles.modalPrice}>{selectedRestaurant.price}</Text>
                 <Text style={styles.modalDescription}>{selectedRestaurant.description}</Text>
@@ -136,7 +157,7 @@ export default function Restaurants() {
       </View>
       {filteredRestaurants.map((restaurant, index) => (
         <Card key={index} style={styles.card}>
-          <Card.Cover source={{ uri: restaurant.imageUri }} />
+          <Card.Cover source={restaurant.imageUri} />
           <Card.Content>
             <Title style={styles.name}>{restaurant.name}</Title>
             <Text style={styles.description}>{restaurant.price}</Text>
@@ -144,6 +165,21 @@ export default function Restaurants() {
                   <Text style={styles.location}>{restaurant.location}</Text>
               </TouchableOpacity>
               <View style={styles.cardFooter}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (isFavorite(restaurant.id)) {
+                    removeFromFavorites(restaurant.id);
+                  } else {
+                    addToFavorites(restaurant);
+                  }
+                }}
+                style={styles.favoriteButton}>
+                <Ionicons
+                  name={isFavorite(restaurant.id) ? "heart" : "heart-outline"}
+                  size={30}
+                  color={isFavorite(restaurant.id) ? "red" : "black"}
+                />
+                </TouchableOpacity>
               <TouchableOpacity onPress={() => openModal(restaurant)} style={styles.plusButton}>
                 <Ionicons name="add-circle" size={30} color="#213A5C" />
               </TouchableOpacity>

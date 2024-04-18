@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Pressable, Image, TouchableOpacity, Alert, Button, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Pressable, Image, TouchableOpacity, Alert, Button, KeyboardAvoidingView, SafeAreaView, Platform, ScrollView } from 'react-native';
 import { logout, signIn, resetPassword } from '../components/Auth.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/Config.js';
@@ -66,6 +66,11 @@ export default function Login({ navigation }) {
   if (isLoggedIn) {
     return(
       <SafeAreaView style = {styles.container}>
+        <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjust behavior based on platform
+                style={{ flex: 1}}
+            >
+          <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}>
         <Image source={require('../assets/Logo_transparent.png')} style={styles.image} />
         <View style={styles.headerItem}>
           <Text style={styles.header}>Explore Oulu: Login</Text>
@@ -91,6 +96,8 @@ export default function Login({ navigation }) {
             onPress={() => navigation.navigate('Profile')}
             color="#D6C9B6" />
         </Pressable>
+        </ScrollView>
+        </KeyboardAvoidingView>
         </SafeAreaView>    
         )
         
@@ -98,6 +105,11 @@ export default function Login({ navigation }) {
   else { 
     return (
       <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjust behavior based on platform
+                style={{ flex: 1}}
+            >
+          <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}>
         <Image source={require('../assets/Logo_transparent.png')} style={styles.image} />
         <View style={styles.headerItem}>
           <Text style={styles.header}>Explore Oulu: Login</Text>
@@ -158,6 +170,9 @@ export default function Login({ navigation }) {
             </Text>
           </>
         }
+        
+        </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
 
     );

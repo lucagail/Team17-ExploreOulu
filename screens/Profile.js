@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Text, View, Pressable, Button, TextInput, Alert, SafeAreaView } from 'react-native';
+import { Text, View, Pressable, Button, TextInput, Alert, SafeAreaView, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db, USERS_REF } from '../firebase/Config';
 import { changePassword, logout, removeUser, updateEmailAddress } from '../components/Auth';
@@ -88,6 +88,12 @@ export default function MyAccount({ navigation }) {
     if (!isLoggedIn) {
       return (
         <SafeAreaView style={styles.container}>
+          <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjust behavior based on platform
+                style={{ flex: 1}}
+                keyboardVerticalOffset={100}
+            >
+          <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}>
           <View style={styles.headerItem}>
             <Text style={styles.header}>Explore Oulu: My Account</Text>
           </View>
@@ -105,12 +111,20 @@ export default function MyAccount({ navigation }) {
               onPress={() => navigation.navigate('Register')}
               color= '#D6C9B6' />
           </Pressable>
+          </ScrollView>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       )
     }
     else {
       return (
         <SafeAreaView style={styles.container}>
+          <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjust behavior based on platform
+                style={{ flex: 1 }}
+                keyboardVerticalOffset={100}
+            >
+              <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}>
           <View style={styles.headerItem}>
             <Text style={styles.header}>Explore Oulu: My Account</Text>
             <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
@@ -169,7 +183,8 @@ export default function MyAccount({ navigation }) {
         <Text style={styles.infoText}>
           Your data will be removed from the database!
         </Text>
-          
+        </ScrollView>
+        </KeyboardAvoidingView>
         </SafeAreaView>
       );
     }

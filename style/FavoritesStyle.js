@@ -16,10 +16,16 @@ export default StyleSheet.create({
           alignItems: 'center',
         },
         backText: {
-          fontSize: 16,
+          fontSize: 14,
           fontWeight: 'bold',
           color: '#213A5C',
           marginLeft: 5,
+        },
+        subtitle: {
+          fontSize: 18,
+          fontWeight: 'bold',
+          color: '#213A5C',
+          marginLeft: 20
         },
         titleContainer: {
           marginBottom: 10,

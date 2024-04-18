@@ -93,30 +93,37 @@ export const removeUser = async () => {
   });
 }
 
-const removeFavorite = async (hotelId) => {
+const removeFavorite = async (itemId, itemType) => {
   try {
-    const subColRef = 
-      collection(db, USERS_REF, auth.currentUser.uid, 'hotels', hotelId);
-    await deleteDoc(doc(subColRef, hotelId));
-  }
-  catch (error) {
-    console.log(error.message);
+    const subColRef = collection(db, USERS_REF, auth.currentUser.uid, itemType);
+    await deleteDoc(doc(subColRef, itemId));
+  } catch (error) {
+    console.log(`Error removing ${itemType} from favorites:`, error.message);
   }
 }
 
 const deleteFavoriteDocuments = async () => {
   let unsubscribe;
-  const subColRef = collection(
-    db, USERS_REF, auth.currentUser.uid, 'hotels');
-  unsubscribe = onSnapshot(subColRef, (querySnapshot) => {
-    querySnapshot.docs.map(doc => {
-      removeFavorite(doc.id)
+  const subColRefHotels = collection(db, USERS_REF, auth.currentUser.uid, 'hotels');
+  const subColRefRestaurants = collection(db, USERS_REF, auth.currentUser.uid, 'restaurants');
+  
+  unsubscribe = onSnapshot(subColRefHotels, (querySnapshotHotels) => {
+    querySnapshotHotels.docs.map(doc => {
+      removeFavorite(doc.id, 'hotels')
     })
   })
+
+  unsubscribe = onSnapshot(subColRefRestaurants, (querySnapshotRestaurants) => {
+    querySnapshotRestaurants.docs.map(doc => {
+      removeFavorite(doc.id, 'restaurants')
+    })
+  })
+
   unsubscribe();
 }
+
 const deleteUserDocument = async () => {
-  await deleteDoc(db, USERS_REF, auth.currentUser.uid)
+  await deleteDoc(doc(db, USERS_REF, auth.currentUser.uid))
   .then(() => {
     console.log("User document was removed.");
   }).catch((error) => {
