@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../style/AboutOuluStyle.js';
 
+const { width } = Dimensions.get('window');
 const AboutOulu = () => {
 
 const navigation = useNavigation();
@@ -25,7 +26,7 @@ return (
       <Text style={styles.title}>About Oulu</Text>
     </View>
     <View style={styles.imageSection}>
-      <View style={styles.sliderContainer}>
+      <View style={[styles.sliderContainer, { height: width / 2 }]}>
         <Swiper style={styles.wrapper} showsButtons={true} activeDotColor="#D6C9B6" dotColor="#213A5C" 
                    prevButton={<Ionicons name="arrow-back" size={30} color="#213A5C" />} nextButton={<Ionicons name="arrow-forward" size={30} color="#213A5C"
                    />} autoplay={true}>
@@ -34,9 +35,6 @@ return (
           </View>
           <View style={styles.slide}>
           <Image source={require('../images/AboutOuluHistory.jpeg')} style={styles.image} />
-          </View>
-          <View style={styles.slide}>
-          <Image source={require('../images/AboutOuluKanu.jpeg')} style={styles.image} />
           </View>
         </Swiper>
       </View>

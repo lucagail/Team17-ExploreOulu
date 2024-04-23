@@ -5,22 +5,14 @@ import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/MapStyle';
-import hotelsData from "../data/hotelsData.json";
-import restaurantsData from "../data/restaurantsData.json";
+import { hotels } from "../data/hotelsData.js";
+import {restaurants} from "../data/restaurantsData.js";
+import { sightseeing } from "../data/sightseeingData.js";
 
 const INITIAL_LATITUDE = 65.0121;
 const INITIAL_LONGITUDE = 25.4651;
 const INITIAL_LATITUDE_DELTA = 0.0922;
 const INITIAL_LONGITUDE_DELTA = 0.0421;
-
-const sightseeing = [
-  { title: 'Market Square and Surroundings', location: 'Kauppatori, 90100 Oulu', coordinates: { latitude: 65.01349, longitude: 25.46451 } },
-  { title: 'Pikisaari', location: 'Pikisaari, 90100 Oulu', coordinates: { latitude: 65.01750, longitude: 25.45700 } },
-  { title: 'Hailuoto', location: 'Hailuoto, 90480 Finland', coordinates: { latitude: 65.00954, longitude: 24.71509 } },
-  { title: 'Car Museum', location: 'Automuseontie 3, 90410 Oulu', coordinates: { latitude: 64.96329, longitude: 25.50263 } },
-  { title: 'Nalikari Beach', location: 'Nallikarinranta, 90500 Oulu', coordinates: { latitude: 65.03050, longitude: 25.41067 } },
-  { title: 'Castle', location: 'Linnansaari 1, 90100 Oulu', coordinates: { latitude: 65.01738, longitude: 25.46808 } }
-];
 
 const openMapsApp = (latitude, longitude) => {
   const url = Platform.select({
@@ -101,7 +93,7 @@ export default function Map() {
             longitudeDelta: INITIAL_LONGITUDE_DELTA
           }}
         >
-          {hotelsData.hotels.map((hotel, index) => (
+          {hotels.map((hotel, index) => (
             <Marker
               pinColor='#213A5C'
               key={index}
@@ -118,7 +110,7 @@ export default function Map() {
               </Callout>
             </Marker>
           ))}
-          {restaurantsData.restaurants.map((restaurants, index) => (
+          {restaurants.map((restaurants, index) => (
             <Marker
               pinColor='#213A5C'
               key={index}
@@ -140,11 +132,11 @@ export default function Map() {
               pinColor='#213A5C'
               key={index}
               coordinate={sightseeing.coordinates}
-              title={sightseeing.title}
+              title={sightseeing.name}
             >
               <Callout>
                 <View style={styles.calloutContainer}>
-                  <Text style={styles.title}>{sightseeing.title}</Text>
+                  <Text style={styles.title}>{sightseeing.name}</Text>
                   <TouchableOpacity onPress={() => openMapsApp(sightseeing.coordinates.latitude, sightseeing.coordinates.longitude)}>
                     <Text style={styles.goText}>Go</Text>
                   </TouchableOpacity>

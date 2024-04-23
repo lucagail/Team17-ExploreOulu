@@ -60,13 +60,13 @@ export default function SignUp({ navigation }) {
     return(
       <SafeAreaView style={styles.container}>
         <View style={styles.headerItem}>
-          <Text style={styles.header}>Todos: Register</Text>
+          <Text style={styles.header}>Explore: Register</Text>
           <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
             <MaterialIcons name="logout" size={24} color="black" />
           </Pressable>
         </View>
         <Text style={styles.infoText}>
-          You are logged in. Go to your todos...
+          You are logged in. Go to home...
         </Text>
         <Pressable style={styles.buttonStyle}>
           <Button

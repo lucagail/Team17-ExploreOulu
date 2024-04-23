@@ -4,7 +4,7 @@ import { Card, Title, Text, Button } from 'react-native-paper';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/RestaurantsStyle';
-import restaurantsData from "../data/restaurantsData.json";
+import { restaurants } from "../data/restaurantsData.js";
 import { doc, setDoc, deleteDoc, collection, onSnapshot } from "firebase/firestore";
 import { db, USERS_REF, auth } from '../firebase/Config.js';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -49,7 +49,7 @@ export default function Restaurants() {
           id: restaurant.id,
           name: restaurant.name,
           location: restaurant.location,
-          image: restaurant.imageUri
+          image: restaurant.image
         });
         console.log("Restaurant added to favorites");
       } else {
@@ -104,7 +104,7 @@ export default function Restaurants() {
     navigation.navigate('Map', { location });
   };
 
-  const filteredRestaurants = selectedCategory === 'All' ? restaurantsData.restaurants : restaurantsData.restaurants.filter(restaurant => restaurant.price.includes(selectedCategory));
+  const filteredRestaurants = selectedCategory === 'All' ? restaurants : restaurants.filter(restaurant => restaurant.price.includes(selectedCategory));
 
   return (
     <ScrollView style={styles.container}>
@@ -130,7 +130,7 @@ export default function Restaurants() {
                 <Text style={styles.modalTitle}>{selectedRestaurant.name}</Text>                
                 <Image
                   style={styles.modalImage}
-                  source={selectedRestaurant.imageUri}
+                  source={selectedRestaurant.image}
                 />
                 <Text style={styles.modalPrice}>{selectedRestaurant.price}</Text>
                 <Text style={styles.modalDescription}>{selectedRestaurant.description}</Text>
@@ -157,7 +157,7 @@ export default function Restaurants() {
       </View>
       {filteredRestaurants.map((restaurant, index) => (
         <Card key={index} style={styles.card}>
-          <Card.Cover source={restaurant.imageUri} />
+          <Card.Cover source={restaurant.image} />
           <Card.Content>
             <Title style={styles.name}>{restaurant.name}</Title>
             <Text style={styles.description}>{restaurant.price}</Text>
@@ -173,14 +173,14 @@ export default function Restaurants() {
                     addToFavorites(restaurant);
                   }
                 }}
-                style={styles.favoriteButton}>
+                >
                 <Ionicons
                   name={isFavorite(restaurant.id) ? "heart" : "heart-outline"}
                   size={30}
                   color={isFavorite(restaurant.id) ? "red" : "black"}
                 />
                 </TouchableOpacity>
-              <TouchableOpacity onPress={() => openModal(restaurant)} style={styles.plusButton}>
+              <TouchableOpacity onPress={() => openModal(restaurant)} >
                 <Ionicons name="add-circle" size={30} color="#213A5C" />
               </TouchableOpacity>
               </View>

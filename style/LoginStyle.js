@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
@@ -14,20 +16,6 @@ export default StyleSheet.create({
     color: '#213A5C',
     fontWeight: 'bold',
     fontSize: 24,
-  },
-  subheader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  myAccountSubheader: {
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 16,
-    fontWeight: 'bold',
- },
-  newItem: {
-    marginVertical: 10,
-    alignItems: 'flex-start',
   },
   infoText: {
     fontWeight: 'bold',
@@ -46,6 +34,8 @@ export default StyleSheet.create({
     bottom: 50,
     flexDirection: 'row',
     alignItems: 'center',
+    alignSelf: 'center',
+    paddingHorizontal: 20
   },
   signupText: {
     marginRight: 5,
@@ -58,50 +48,17 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginTop: 15,
     marginBottom: 15,
-    width: '90%',
-  },
-  deleteAccountButton: {
-    marginTop: 10,
-    marginBottom: 20,
-    width: "90%",
-    color: 'red',
-    backgroundColor: '#213A5C'
+    width: width * 0.9,
   },
   textInput: {
     borderWidth: 1,
     borderColor: '#213A5C',
-    width: '90%',
+    width: width * 0.9,
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginTop: 10,
     fontSize: 16
-  },
-  todoItem: {
-    flexDirection: 'row',
-    marginVertical: 10,
-  },
-  todoText: {
-    borderColor: '#afafaf',
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderWidth: 1,
-    borderRadius: 5,
-    minWidth: '70%'
-  },
-  myAccountLabel: {
-    marginTop: 5,
-    marginBottom: 3,
-    fontSize: 15
-  },
-  myAccountTextInput: {
-    borderWidth: 1,
-    borderColor: '#afafaf',
-    width: '90%',
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 5,
-    fontSize: 15
   },
   logoutIcon: {
     marginTop: 10,
@@ -113,8 +70,8 @@ export default StyleSheet.create({
     color: '#213A5C'
   },
   image: {
-    width: 110,
-    height: 110,
+    width: width * 0.3,
+    height: width * 0.3,
     borderRadius: 10,
     margin: 10,
   },

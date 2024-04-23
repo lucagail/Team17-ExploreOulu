@@ -16,7 +16,7 @@ export default function Home() {
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('Hotels')} style={styles.imageWrapper}>
             <Image
-              source={require('../images/hotelCover.jpg')}
+              source={require('../images/Hotel-cover.jpg')}
               style={styles.image}
             />
             <View style={styles.titleContainerLeft}>
@@ -36,7 +36,7 @@ export default function Home() {
 
           <TouchableOpacity onPress={() => navigation.navigate('Restaurants')} style={styles.imageWrapper}>
             <Image
-              source={require('../assets/Oulu_1.jpg')}
+              source={require('../images/Restaurants-cover.jpg')}
               style={styles.image}
             />
             <View style={styles.titleContainerLeft}>
@@ -56,7 +56,7 @@ export default function Home() {
 
           <TouchableOpacity onPress={() => navigation.navigate('AboutOulu')} style={styles.imageWrapper}>
             <Image
-              source={require('../assets/Oulu_1.jpg')}
+              source={require('../images/AboutOulu2.jpeg')}
               style={styles.image}
             />
             <View style={styles.titleContainerLeft}>
@@ -66,7 +66,7 @@ export default function Home() {
 
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')} style={styles.imageWrapper}>
             <Image
-              source={require('../assets/Oulu_1.jpg')}
+              source={require('../images/Favorites-cover.jpg')}
               style={styles.image}
             />
             <View style={styles.titleContainerRight}>

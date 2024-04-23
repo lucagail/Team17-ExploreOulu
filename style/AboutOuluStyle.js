@@ -3,37 +3,35 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
   },
   header: {
-    fontSize: 24,
-    fontWeight: 'bold',
     marginVertical: 12,
     marginHorizontal: 20,
   },
   subheader: {
-   marginTop: 10,
-   marginBottom: 10,
-   fontSize: 20, 
-   fontWeight: 'bold',
-   color: '#213A5C',
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#213A5C',
   },
   backButton: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   backText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#213A5C',
     marginLeft: 5,
   },
   titleContainer: {
     marginBottom: 10,
-    marginLeft: 20
+    marginLeft: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#213A5C',
   },
@@ -47,7 +45,7 @@ export default StyleSheet.create({
   sectionText: {
     fontSize: 16,
     lineHeight: 22,
-    textAlign: 'justify', 
+    textAlign: 'justify',
   },
   imageSection: {
     backgroundColor: '#fff',
@@ -58,7 +56,6 @@ export default StyleSheet.create({
     elevation: 3,
   },
   sliderContainer: {
-    height: 200,
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -69,8 +66,8 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 200,
-    height: 200,
+    width: '75%',
+    height: '75%',
     borderRadius: 10,
   },
-  });
+});

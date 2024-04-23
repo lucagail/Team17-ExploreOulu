@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/HotelsStyle';
 import { doc, setDoc, deleteDoc, getDocs, collection, onSnapshot, query } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
-import hotelsData from "../data/hotelsData.json";
+import { hotels } from "../data/hotelsData.js";
 
 export default function Hotels() {
   const navigation = useNavigation();
@@ -15,7 +15,6 @@ export default function Hotels() {
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const hotels = hotelsData;
 
 
   useEffect(() => {
@@ -50,9 +49,9 @@ export default function Hotels() {
           id: hotel.id,
           name: hotel.name,
           location: hotel.location,
-          image: hotel.imageUri
+          image: hotel.image
         });
-        console.log("Hotel added removed from favorites");
+        console.log("Hotel added to favorites");
       } else {
         console.log("User is not logged in");
       }
@@ -124,7 +123,7 @@ export default function Hotels() {
                 <Text style={styles.modalTitle}>{selectedHotel.name}</Text>
                 <Image
                   style={styles.modalImage}
-                  source={ hotelsData.imageUri }
+                  source={ selectedHotel.image }
                 />
                 <Text style={styles.modalDescription}>{selectedHotel.description}</Text>
                 <TouchableOpacity onPress={() => { 
@@ -142,10 +141,10 @@ export default function Hotels() {
         </View>
       </Modal>
       <View style={styles.cardContainer}>
-      {hotelsData.hotels.map((card, index) => (
+      {hotels.map((card, index) => (
         <View key={index} style={styles.cardItem}>
           <Card style={styles.card}>
-            <Card.Cover source={card.imageUri } />
+            <Card.Cover source={card.image } />
             <Card.Content>
               <Title style={styles.title}>{card.name}</Title>
               <TouchableOpacity onPress={() => openMapWithAddress(card.location)}>
@@ -161,7 +160,7 @@ export default function Hotels() {
                         addToFavorites(card);
                       }
                     }}
-                    style={styles.favoriteButton}>
+                    >
                     <Ionicons name={isFavorite(card.id) ? "heart" : "heart-outline"} size={30} color={isFavorite(card.id) ? "red" : "black"} />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => openModal(card)}>

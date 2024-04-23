@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
         container: {
@@ -6,8 +8,6 @@ export default StyleSheet.create({
           backgroundColor: '#ffffff'
         },
         header: {
-          fontSize: 24,
-          fontWeight: 'bold',
           marginVertical: 12,
           marginHorizontal: 20,
         },
@@ -16,13 +16,13 @@ export default StyleSheet.create({
           alignItems: 'center',
         },
         backText: {
-          fontSize: 14,
+          fontSize: 18,
           fontWeight: 'bold',
           color: '#213A5C',
           marginLeft: 5,
         },
         subtitle: {
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: 'bold',
           color: '#213A5C',
           marginLeft: 20
@@ -32,7 +32,7 @@ export default StyleSheet.create({
           marginLeft: 20
         },
         title: {
-          fontSize: 20,
+          fontSize: 22,
           fontWeight: 'bold',
           color: '#213A5C',
         },
@@ -45,8 +45,8 @@ export default StyleSheet.create({
           borderRadius: 8,
         },
         hotelImage: {
-          width: 100,
-          height: 100,
+          width: width * 0.25,
+          height: width * 0.25,
           borderRadius: 8,
           marginRight: 10,
         },
@@ -67,6 +67,7 @@ export default StyleSheet.create({
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
+          margin: 20
         },
         noHotelText: {
           fontSize: 18,

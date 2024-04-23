@@ -14,7 +14,7 @@ import Map from './screens/Map';
 import AboutOulu from './screens/AboutOulu';
 import ContactUs from './screens/ContactUs';
 import Favorites from './screens/Favorites';
-import Styles from './style/Styles';
+import Styles from './style/NavigationStyle';
 import Login from './screens/Login';
 import SignUp from './screens/SignUp'
 import Profile from './screens/Profile';
@@ -56,6 +56,20 @@ const MapIcon = () => {
   );
 };
 
+const FavoritesIcon = () => {
+  const navigation = useNavigation();
+
+  return (
+    <Ionicons
+      name="heart"
+      size={24}
+      color="#D6C9B6"
+      onPress={() => navigation.navigate('Favorites')}
+      style={{ marginRight: 15 }}
+    />
+  );
+};
+
 const DrawerNavigator = () => (
   <Drawer.Navigator 
     initialRouteName="Home"
@@ -70,46 +84,46 @@ const DrawerNavigator = () => (
       headerTintColor: '#D6C9B6', 
       }}
       >
-    <Drawer.Screen name="Home" component={Home} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />, 
+    <Drawer.Screen name="Home" component={Home} options={{ headerTitle: 'Explore Oulu', headerRight: () =><View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>, 
           headerStyle: { backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6'},
           drawerIcon: ({ color }) => <Ionicons name="home" size={24} color={color} />}} />
 
-    <Drawer.Screen name="Hotels" component={Hotels} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />, 
+    <Drawer.Screen name="Hotels" component={Hotels} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>, 
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6'},
           drawerIcon: ({ color }) => <Ionicons name="bed" size={24} color={color} />}}/>
 
-    <Drawer.Screen name="Sightseeing" component={Sightseeing} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+    <Drawer.Screen name="Sightseeing" component={Sightseeing} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>,
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="eye" size={24} color={color} />}}/> 
 
-    <Drawer.Screen name="Restaurants" component={Restaurants} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+    <Drawer.Screen name="Restaurants" component={Restaurants} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>,
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="restaurant" size={24} color={color} />}}/> 
 
-    <Drawer.Screen name="Tours" component={Tours} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+    <Drawer.Screen name="Tours" component={Tours} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>,
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="bus" size={24} color={color} />}}/>  
 
-    <Drawer.Screen name="Map" component={Map} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+    <Drawer.Screen name="Map" component={Map} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>,
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="location" size={24} color={color} />}}/>
   
-    <Drawer.Screen name="AboutOulu" component={AboutOulu} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />, 
+    <Drawer.Screen name="AboutOulu" component={AboutOulu} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>, 
           drawerLabel: 'About Oulu',
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="information-circle" size={24} color={color} />}}/> 
     
-    <Drawer.Screen name="Favorites" component={Favorites} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+    <Drawer.Screen name="Favorites" component={Favorites} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>,
           drawerLabel: 'Favorites',
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="heart" size={24} color={color} />}}/>
 
-    <Drawer.Screen name="ContactUs" component={ContactUs} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+    <Drawer.Screen name="ContactUs" component={ContactUs} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>,
           drawerLabel: 'Contact us',
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="mail" size={24} color={color} />}}/> 
     
-    <Drawer.Screen name="Profile" component={Profile} options={{ headerTitle: 'Explore Oulu', headerRight: () => <MapIcon />,
+    <Drawer.Screen name="Profile" component={Profile} options={{ headerTitle: 'Explore Oulu', headerRight: () => <View style={{ flexDirection: 'row' }}><FavoritesIcon /><MapIcon /></View>,
           drawerLabel: 'My Profile',
           headerStyle: {backgroundColor: '#213A5C',}, headerTitleStyle: { color: '#D6C9B6' },
           drawerIcon: ({ color }) => <Ionicons name="person-circle" size={24} color={color} />}}/> 

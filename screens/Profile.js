@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Text, View, Pressable, Button, TextInput, Alert, SafeAreaView, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db, USERS_REF } from '../firebase/Config';
-import { changePassword, logout, removeUser, updateEmailAddress } from '../components/Auth';
-import { collection, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { auth, db, USERS_REF } from '../firebase/Config.js';
+import { changePassword, logout, removeUser } from '../components/Auth.js';
+import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../style/ProfileStyle.js';
 

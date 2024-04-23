@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
@@ -7,7 +9,7 @@ export default StyleSheet.create({
   },
   headerItem: {
     flexDirection: 'row',
-    marginVertical: 10,
+    marginTop: 20,
     alignItems: 'center',
   },
   header: {
@@ -15,41 +17,17 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 24,
   },
-  subheader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   myAccountSubheader: {
     marginTop: 10,
     marginBottom: 10,
     fontSize: 16,
     fontWeight: 'bold',
  },
-  newItem: {
-    marginVertical: 10,
-    alignItems: 'flex-start',
-  },
   infoText: {
     fontWeight: 'bold',
     marginBottom: 5,
     fontSize: 16,
     paddingHorizontal: 20
-  },
-  passwordInfoText: {
-    fontWeight: 'bold',
-    marginTop: 5,
-    marginBottom: 5,
-    fontSize: 14,
-  },
-  signupContainer: {
-    position: 'absolute',
-    bottom: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  signupText: {
-    marginRight: 5,
-    fontWeight: 'bold'
   },
   buttonStyle: {
     backgroundColor: '#213A5C',
@@ -58,36 +36,17 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginTop: 15,
     marginBottom: 15,
-    width: '90%',
-  },
-  deleteAccountButton: {
-    marginTop: 10,
-    marginBottom: 20,
-    width: "90%",
-    color: 'red',
-    backgroundColor: '#213A5C'
+    width: width * 0.9,
   },
   textInput: {
     borderWidth: 1,
     borderColor: '#213A5C',
-    width: '90%',
+    width: width * 0.9,
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginTop: 10,
     fontSize: 16
-  },
-  todoItem: {
-    flexDirection: 'row',
-    marginVertical: 10,
-  },
-  todoText: {
-    borderColor: '#afafaf',
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderWidth: 1,
-    borderRadius: 5,
-    minWidth: '70%'
   },
   myAccountLabel: {
     marginTop: 5,
@@ -97,7 +56,7 @@ export default StyleSheet.create({
   myAccountTextInput: {
     borderWidth: 1,
     borderColor: '#afafaf',
-    width: '90%',
+    width: width * 0.9,
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 5,
@@ -106,16 +65,5 @@ export default StyleSheet.create({
   logoutIcon: {
     marginTop: 10,
     marginLeft: 10
-  },
-  linkText: {
-    textDecorationLine: 'underline',
-    fontWeight: 'bold',
-    color: '#213A5C'
-  },
-  image: {
-    width: 110,
-    height: 110,
-    borderRadius: 10,
-    margin: 10,
   },
 });

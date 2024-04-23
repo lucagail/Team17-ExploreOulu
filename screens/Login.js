@@ -37,6 +37,7 @@ export default function Login({ navigation }) {
       signIn(email, password);
       onAuthStateChanged(auth, async (user) => {
         if (user) {
+          console.log(auth.currentUser)
           setEmail('');
           setPassword('');
           navigation.navigate('DrawerNavigator');
@@ -71,7 +72,7 @@ export default function Login({ navigation }) {
                 style={{ flex: 1}}
             >
           <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}>
-        <Image source={require('../assets/Logo_transparent.png')} style={styles.image} />
+        <Image source={require('../images/logo/Logo_transparent.png')} style={styles.image} />
         <View style={styles.headerItem}>
           <Text style={styles.header}>Explore Oulu: Login</Text>
           <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
@@ -106,11 +107,11 @@ export default function Login({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjust behavior based on platform
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
                 style={{ flex: 1}}
             >
           <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}>
-        <Image source={require('../assets/Logo_transparent.png')} style={styles.image} />
+        <Image source={require('../images/logo/Logo_transparent.png')} style={styles.image} />
         <View style={styles.headerItem}>
           <Text style={styles.header}>Explore Oulu: Login</Text>
           </View>
@@ -142,12 +143,7 @@ export default function Login({ navigation }) {
             style={styles.linkText}
             onPress={handlePressForgotPw}>Forgot password?</Text>
         </Pressable>
-        <View style={styles.signupContainer}>
-        <Text style={styles.signupText}>Not having account yet?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={styles.linkText}>Sign up now!</Text>
-        </TouchableOpacity>
-      </View>
+        
        
         { showForgotPw &&
           <>
@@ -173,6 +169,12 @@ export default function Login({ navigation }) {
         
         </ScrollView>
         </KeyboardAvoidingView>
+        <View style={styles.signupContainer}>
+        <Text style={styles.signupText}>Not having account yet?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.linkText}>Sign up now!</Text>
+        </TouchableOpacity>
+      </View>
       </SafeAreaView>
 
     );

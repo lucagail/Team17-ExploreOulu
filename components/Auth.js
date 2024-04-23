@@ -7,8 +7,8 @@ import {
   signOut,
   updateEmail,
   updatePassword } from 'firebase/auth';
-import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
-import { auth, db, USERS_REF, FAVORITES_REF } from '../firebase/Config.js';
+import { collection, deleteDoc, doc, setDoc, getDocs } from 'firebase/firestore';
+import { auth, db, USERS_REF } from '../firebase/Config.js';
 
 export const signUp = async (nickname, email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)
@@ -35,8 +35,8 @@ export const signUp = async (nickname, email, password) => {
     })
   }
   
-  export const logout = async () => { 
-    await signOut(auth)
+  export const logout = async (email, password) => { 
+    await signOut(auth, email, password)
     .then(() => {
       console.log("Logout successful.");
     })
@@ -81,53 +81,101 @@ export const resetPassword = async (email) => {
 }
 
 //neu
+
 export const removeUser = async () => {
-  deleteFavoriteDocuments();
-  deleteUserDocument();
-  deleteUser(auth.currentUser)
-  .then(() => {
-    console.log("User was removed.");
-  }).catch((error) => {
-    console.log("User delete error. ", error.message);
-    Alert.alert("User delete error. ", error.message);
-  });
-}
-
-const removeFavorite = async (itemId, itemType) => {
   try {
-    const subColRef = collection(db, USERS_REF, auth.currentUser.uid, itemType);
-    await deleteDoc(doc(subColRef, itemId));
+    console.log("Deleting user...");
+    // Überprüfen, ob der Benutzer angemeldet ist
+    if (auth.currentUser) {
+      await deleteUser(auth.currentUser);
+      console.log("User was removed.");
+
+      console.log("Deleting hotels documents...");
+      await deleteHotelsDocuments();
+      console.log("Hotels documents deleted.");
+
+      console.log("Deleting sightseeing documents...");
+      await deleteSightseeingDocuments();
+      console.log("Sightseeing documents deleted.");
+
+      console.log("Deleting restaurants documents...");
+      await deleteRestaurantsDocuments();
+      console.log("Restaurants documents deleted.");
+
+      console.log("Deleting user document...");
+      await deleteUserDocument();
+      console.log("User document deleted.");
+
+    } else {
+      console.log("No user logged in.");
+      Alert.alert("No user logged in.");
+    }
   } catch (error) {
-    console.log(`Error removing ${itemType} from favorites:`, error.message);
+    console.log("Error removing user:", error.message);
+    Alert.alert("User delete error:", error.message);
   }
-}
+};
 
-const deleteFavoriteDocuments = async () => {
-  let unsubscribe;
-  const subColRefHotels = collection(db, USERS_REF, auth.currentUser.uid, 'hotels');
-  const subColRefRestaurants = collection(db, USERS_REF, auth.currentUser.uid, 'restaurants');
-  
-  unsubscribe = onSnapshot(subColRefHotels, (querySnapshotHotels) => {
-    querySnapshotHotels.docs.map(doc => {
-      removeFavorite(doc.id, 'hotels')
-    })
-  })
 
-  unsubscribe = onSnapshot(subColRefRestaurants, (querySnapshotRestaurants) => {
-    querySnapshotRestaurants.docs.map(doc => {
-      removeFavorite(doc.id, 'restaurants')
-    })
-  })
 
-  unsubscribe();
-}
+const deleteHotelsDocuments = async () => {
+  if (auth.currentUser) {
+    try {
+      console.log("Deleting hotels documents...");
+      const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'hotels');
+      const querySnapshot = await getDocs(subColRef);
+      querySnapshot.forEach(doc => {
+        deleteDoc(doc.ref);
+      });
+    } catch (error) {
+      console.error("Error deleting hotels documents:", error.message);
+    }
+  }
+};
+
+const deleteSightseeingDocuments = async () => {
+  if (auth.currentUser) {
+    try {
+      console.log("Deleting sightseeing documents...");
+      const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'sightseeing');
+      const querySnapshot = await getDocs(subColRef);
+      querySnapshot.forEach(doc => {
+        deleteDoc(doc.ref);
+      });
+    } catch (error) {
+      console.error("Error deleting sightseeing documents:", error.message);
+    }
+  }
+};
+
+const deleteRestaurantsDocuments = async () => {
+  if (auth.currentUser) {
+    try {
+      console.log("Deleting restaurants documents...");
+      const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'restaurants');
+      const querySnapshot = await getDocs(subColRef);
+      querySnapshot.forEach(doc => {
+        deleteDoc(doc.ref);
+      });
+    } catch (error) {
+      console.error("Error deleting restaurants documents:", error.message);
+    }
+  }
+};
+
 
 const deleteUserDocument = async () => {
-  await deleteDoc(doc(db, USERS_REF, auth.currentUser.uid))
-  .then(() => {
-    console.log("User document was removed.");
-  }).catch((error) => {
-    console.log("User document delete error. ", error.message);
-    Alert.alert("User document delete error. ", error.message);
-  });
+  console.log("Deleting user document...");
+  if (auth.currentUser) {
+    await deleteDoc(doc(db, USERS_REF, auth.currentUser.uid))
+      .then(() => {
+        console.log("User document was removed.");
+      }).catch((error) => {
+        console.log("User document delete error. ", error.message);
+        Alert.alert("User document delete error. ", error.message);
+      });
+  } else {
+    console.log("No user logged in.");
+    Alert.alert("Account deleted.");
+  }
 };

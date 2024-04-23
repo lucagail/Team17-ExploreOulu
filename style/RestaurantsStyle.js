@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
@@ -9,23 +11,23 @@ export default StyleSheet.create({
       card: {
         marginVertical: 12,
         marginHorizontal: 20,
+        backgroundColor: '#ffffff'
       },
       location: {
-        fontSize: 16,
+        fontStyle: 'italic',
+        fontSize: 18,
         marginTop: 8,
         textAlign: 'right'
       },
       name: {
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 'bold',
         color: '#213A5C',
       },
       description: {
-        fontSize: 14,
+        fontSize: 16,
       },
       header: {
-        fontSize: 24,
-        fontWeight: 'bold',
         marginVertical: 12,
         marginHorizontal: 20,
       },
@@ -34,7 +36,7 @@ export default StyleSheet.create({
         alignItems: 'center',
       },
       backText: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
         color: '#213A5C',
         marginLeft: 5,
@@ -44,7 +46,7 @@ export default StyleSheet.create({
         marginLeft: 20
       },
       title: {
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: 'bold',
         color: '#213A5C',
       },
@@ -84,29 +86,29 @@ export default StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: 10,
         padding: 20,
-        width: '80%'
+        width: width * 0.8
       },
       modalImage: {
-        width: '100%',
-        height: 200,
+        width: "100%",
+        height: width * 0.5,
         resizeMode: 'cover',
         borderRadius: 10,
         marginBottom: 10
       },
       modalTitle: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 5,
         color: '#213A5C'
       },
       modalLocation: {
         fontStyle: 'italic',
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 5,
         textAlign: 'right'
       },
       modalDescription: {
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 10,
         textAlign: 'justify'
       },

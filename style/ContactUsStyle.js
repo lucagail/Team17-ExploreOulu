@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
@@ -7,8 +9,8 @@ export default StyleSheet.create({
         backgroundColor: '#ffffff',
       },
       image: {
-        width: 200,
-        height: 200,
+        width: width*0.6,
+        height: width*0.6,
         resizeMode: 'cover',
         borderRadius: 10,
         alignSelf: 'center',
@@ -36,7 +38,7 @@ export default StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         alignSelf: 'center',
-        width: '80%',
+        width: width * 0.8,
       },
       emailIcon: {
         marginRight: 10,
@@ -57,7 +59,7 @@ export default StyleSheet.create({
        flexDirection: 'row',
      },
      backText: {
-       fontSize: 16,
+       fontSize: 18,
        fontWeight: 'bold',
        color: '#213A5C',
        marginLeft: 5,
