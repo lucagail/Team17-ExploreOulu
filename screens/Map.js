@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Linking, Platform, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, View, Linking, Platform, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
@@ -80,9 +80,11 @@ export default function Map() {
   };
 
   if (isLoading) {
-    return <View style={styles.container}>
-      <Text style={styles.textLoading}>Retrieving location...</Text>
-    </View>
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#213A5C" />
+      </View>
+    );
   }
   else {
     return (
