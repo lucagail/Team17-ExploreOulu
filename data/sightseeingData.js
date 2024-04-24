@@ -1,7 +1,7 @@
 export const sightseeing = [
     {
       "id": "sightseeing1",
-      "name": "Market Square and Surroundings",
+      "name": "Market Square",
       "description": "The Market Square of Oulu is the heart of the city. Locals and visitors alike gather here to buy local products in the market hall, experience traditional markets, or simply enjoy the bustling atmosphere. Surrounded by historic buildings and cozy cafes, the market square provides a picturesque setting for a leisurely stroll or a coffee outdoors. The market activity is overseen by the Policeman, a large statue serving as a meeting point and one of the most popular photo spots.",
       "location": "Kauppatori, 90100 Oulu",
       "image": require("../images/Kauppahalli2.jpeg"),
