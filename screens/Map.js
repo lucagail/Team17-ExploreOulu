@@ -28,7 +28,8 @@ export default function Map() {
   const [longitude, setLongitude] = useState(INITIAL_LONGITUDE);
   const [isLoading, setIsLoading] = useState(true);
   const [mapRef, setMapRef] = useState(null);
-  const [showUserLocation, setShowUserLocation] = useState(false); 
+  const [showUserLocation, setShowUserLocation] = useState(false);
+  const [filter, setFilter] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -74,6 +75,10 @@ export default function Map() {
     }
   };
 
+  const handleFilterChange = (filter) => {
+    setFilter(filter);
+  };
+
   if (isLoading) {
     return <View style={styles.container}>
       <Text style={styles.textLoading}>Retrieving location...</Text>
@@ -82,6 +87,20 @@ export default function Map() {
   else {
     return (
       <SafeAreaView style={styles.container}>
+        <View style={styles.filterContainer}>
+          <TouchableOpacity onPress={() => handleFilterChange(null)} style={[styles.filterButton, !filter && styles.activeFilterButton]}>
+            <Text style={[styles.filterButtonText, !filter && styles.activeFilterButtonText]}>All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleFilterChange('hotels')} style={[styles.filterButton, filter === 'hotels' && styles.activeFilterButton]}>
+            <Text style={[styles.filterButtonText, filter === 'hotels' && styles.activeFilterButtonText]}>Hotels</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleFilterChange('restaurants')} style={[styles.filterButton, filter === 'restaurants' && styles.activeFilterButton]}>
+            <Text style={[styles.filterButtonText, filter === 'restaurants' && styles.activeFilterButtonText]}>Restaurants</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleFilterChange('sightseeing')} style={[styles.filterButton, filter === 'sightseeing' && styles.activeFilterButton]}>
+            <Text style={[styles.filterButtonText, filter === 'sightseeing' && styles.activeFilterButtonText]}>Sightseeing</Text>
+          </TouchableOpacity>
+        </View>
         <MapView
           ref={(ref) => setMapRef(ref)}
           showsUserLocation={showUserLocation} 
@@ -89,64 +108,71 @@ export default function Map() {
           initialRegion={{
             latitude: INITIAL_LATITUDE,
             longitude: INITIAL_LONGITUDE,
-            latitudeDelta: INITIAL_LATITUDE_DELTA,
-            longitudeDelta: INITIAL_LONGITUDE_DELTA
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02
           }}
         >
           {hotels.map((hotel, index) => (
-            <Marker
-              pinColor='#213A5C'
-              key={index}
-              coordinate={hotel.coordinates}
-              title={hotel.name}
-            >
-              <Callout>
-                <View style={styles.calloutContainer}>
-                  <Text style={styles.title}>{hotel.name}</Text>
-                  <TouchableOpacity onPress={() => openMapsApp(hotel.coordinates.latitude, hotel.coordinates.longitude)}>
-                    <Text style={styles.goText}>Go</Text>
-                  </TouchableOpacity>
-                </View>
-              </Callout>
-            </Marker>
+            (filter === null || filter === 'hotels') && (
+              <Marker
+                pinColor='#213A5C'
+                key={index}
+                coordinate={hotel.coordinates}
+                title={hotel.name}
+              >
+                <Callout>
+                  <View style={styles.calloutContainer}>
+                    <Text style={styles.title}>{hotel.name}</Text>
+                    <TouchableOpacity onPress={() => openMapsApp(hotel.coordinates.latitude, hotel.coordinates.longitude)}>
+                      <Text style={styles.goText}>Go</Text>
+                    </TouchableOpacity>
+                  </View>
+                </Callout>
+              </Marker>
+              
+            )
           ))}
-          {restaurants.map((restaurants, index) => (
-            <Marker
-              pinColor='#213A5C'
-              key={index}
-              coordinate={restaurants.coordinates}
-              title={restaurants.name}
-            >
-              <Callout>
-                <View style={styles.calloutContainer}>
-                  <Text style={styles.title}>{restaurants.name}</Text>
-                  <TouchableOpacity onPress={() => openMapsApp(restaurants.coordinates.latitude, restaurants.coordinates.longitude)}>
-                    <Text style={styles.goText}>Go</Text>
-                  </TouchableOpacity>
-                </View>
-              </Callout>
-            </Marker>
+          {restaurants.map((restaurant, index) => (
+            (filter === null || filter === 'restaurants') && (
+              <Marker
+                pinColor='#213A5C'
+                key={index}
+                coordinate={restaurant.coordinates}
+                title={restaurant.name}
+              >
+                <Callout>
+                  <View style={styles.calloutContainer}>
+                    <Text style={styles.title}>{restaurant.name}</Text>
+                    <TouchableOpacity onPress={() => openMapsApp(restaurant.coordinates.latitude, restaurant.coordinates.longitude)}>
+                      <Text style={styles.goText}>Go</Text>
+                    </TouchableOpacity>
+                  </View>
+                </Callout>
+              </Marker>
+            )
           ))}
-          {sightseeing.map((sightseeing, index) => (
-            <Marker
-              pinColor='#213A5C'
-              key={index}
-              coordinate={sightseeing.coordinates}
-              title={sightseeing.name}
-            >
-              <Callout>
-                <View style={styles.calloutContainer}>
-                  <Text style={styles.title}>{sightseeing.name}</Text>
-                  <TouchableOpacity onPress={() => openMapsApp(sightseeing.coordinates.latitude, sightseeing.coordinates.longitude)}>
-                    <Text style={styles.goText}>Go</Text>
-                  </TouchableOpacity>
-                </View>
-              </Callout>
-            </Marker>
+          {sightseeing.map((spot, index) => (
+            (filter === null || filter === 'sightseeing') && (
+              <Marker
+                pinColor='#213A5C'
+                key={index}
+                coordinate={spot.coordinates}
+                title={spot.name}
+              >
+                <Callout>
+                  <View style={styles.calloutContainer}>
+                    <Text style={styles.title}>{spot.name}</Text>
+                    <TouchableOpacity onPress={() => openMapsApp(spot.coordinates.latitude, spot.coordinates.longitude)}>
+                      <Text style={styles.goText}>Go</Text>
+                    </TouchableOpacity>
+                  </View>
+                </Callout>
+              </Marker>
+            )
           ))}
         </MapView>
         <TouchableOpacity style={styles.iconContainer} onPress={handleShowUserLocation}>
-          <Ionicons name="locate" size={24} color="black" />
+          <Ionicons name="locate" size={24} color="#D6C9B6" />
         </TouchableOpacity>
       </SafeAreaView>
     );
