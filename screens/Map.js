@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Linking, Platform, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
+import { Text, View, Linking, Platform, TouchableOpacity, SafeAreaView, ActivityIndicator, Modal } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
@@ -8,6 +8,8 @@ import styles from '../style/MapStyle';
 import { hotels } from "../data/hotelsData.js";
 import {restaurants} from "../data/restaurantsData.js";
 import { sightseeing } from "../data/sightseeingData.js";
+import Hotels from './Hotels';
+import { useNavigation } from '@react-navigation/native';
 
 const INITIAL_LATITUDE = 65.0121;
 const INITIAL_LONGITUDE = 25.4651;
@@ -30,6 +32,12 @@ export default function Map() {
   const [mapRef, setMapRef] = useState(null);
   const [showUserLocation, setShowUserLocation] = useState(false);
   const [filter, setFilter] = useState(null);
+
+  const navigation = useNavigation(); 
+  const [selectedHotel, setSelectedHotel] = useState(null);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
+
 
   useEffect(() => {
     (async () => {
@@ -79,6 +87,18 @@ export default function Map() {
     setFilter(filter);
   };
 
+  const openHotelModal = (hotel) => {
+    navigation.navigate('Hotels', { modalVisible: true, selectedHotel: hotel });
+  };
+
+  const openRestaurantModal = (restaurant) => {
+    navigation.navigate('Restaurants', { modalVisible: true, selectedRestaurant: restaurant });
+  };
+
+  const openSightseeingModal = (sightseeing) => {
+    navigation.navigate('Sightseeing', { modalVisible: true, selectedCard: sightseeing });
+  };
+
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -124,6 +144,9 @@ export default function Map() {
               >
                 <Callout>
                   <View style={styles.calloutContainer}>
+                  <TouchableOpacity onPress={() => openHotelModal(hotel)}>
+                    <Ionicons name="information-circle-outline" size={24} color="#213A5C" />
+                  </TouchableOpacity>
                     <Text style={styles.title}>{hotel.name}</Text>
                     <TouchableOpacity onPress={() => openMapsApp(hotel.coordinates.latitude, hotel.coordinates.longitude)}>
                       <Text style={styles.goText}>Go</Text>
@@ -144,6 +167,9 @@ export default function Map() {
               >
                 <Callout>
                   <View style={styles.calloutContainer}>
+                  <TouchableOpacity onPress={() => openRestaurantModal(restaurant)}>
+                    <Ionicons name="information-circle-outline" size={24} color="#213A5C" />
+                  </TouchableOpacity>
                     <Text style={styles.title}>{restaurant.name}</Text>
                     <TouchableOpacity onPress={() => openMapsApp(restaurant.coordinates.latitude, restaurant.coordinates.longitude)}>
                       <Text style={styles.goText}>Go</Text>
@@ -163,6 +189,9 @@ export default function Map() {
               >
                 <Callout>
                   <View style={styles.calloutContainer}>
+                  <TouchableOpacity onPress={() => openSightseeingModal(spot)}>
+                    <Ionicons name="information-circle-outline" size={24} color="#213A5C" />
+                  </TouchableOpacity>
                     <Text style={styles.title}>{spot.name}</Text>
                     <TouchableOpacity onPress={() => openMapsApp(spot.coordinates.latitude, spot.coordinates.longitude)}>
                       <Text style={styles.goText}>Go</Text>

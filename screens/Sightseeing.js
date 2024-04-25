@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, TouchableOpacity, View, Modal, Image } from 'react-native';
 import { Card, Title, Text, Button } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/SightseeingStyle';
 import {sightseeing} from "../data/sightseeingData.js";
@@ -12,10 +12,22 @@ import { onAuthStateChanged } from 'firebase/auth';
 export default function Sightseeing() {
 
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const route = useRoute(); 
+
+  const defaultParams = route.params || {}; 
+  const [modalVisible, setModalVisible] = useState(defaultParams.modalVisible || false); 
+  const [selectedCard, setSelectedCard] = useState(defaultParams.selectedCard || null); 
+
+  useEffect(() => {
+    const { params } = route;
+    if (params && params.selectedCard) {
+      setSelectedCard(params.selectedCard);
+      setModalVisible(params.modalVisible);
+    }
+  }, [route]);
 
   useEffect(() => {
     let unsubscribe;

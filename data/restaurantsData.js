@@ -30,7 +30,7 @@ export const restaurants = [
       "id": "restaurant4",
       "name": "Fuchka",
       "price": "20-30€",
-      "description": "Are you searching for a different culinary experience? Welcome to FUCHKA, the only Bangladeshi restaurant in Finland, located in Oulu. Fuchka means delicious Bangladeshi finger food that local people typically buy from the street bazaars. In addition to Fuchka, we also offer many other authentic Bangladeshi dishes like Samosa, Signara and Alu Chop- accompanied with a freshly baked, flavoured Bangladeshi bread.",
+      "description": "Are you searching for a different culinary experience? Welcome to Fuchka, the only Bangladeshi restaurant in Finland, located in Oulu. Fuchka means delicious Bangladeshi finger food that local people typically buy from the street bazaars. In addition to Fuchka, we also offer many other authentic Bangladeshi dishes like Samosa, Signara and Alu Chop- accompanied with a freshly baked, flavoured Bangladeshi bread.",
       "location": "Nummikatu 32, 90100 Oulu",
       "image": require("../images/Fuchka.jpg"),
       "coordinates": { "latitude": 65.00820, "longitude": 25.46643 }

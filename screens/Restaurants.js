@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Modal, Image, TouchableOpacity } from 'react-native';
 import { Card, Title, Text, Button } from 'react-native-paper';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/RestaurantsStyle';
 import { restaurants } from "../data/restaurantsData.js";
@@ -11,12 +11,24 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 export default function Restaurants() {
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
   const isFocused = useIsFocused();
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const route = useRoute(); 
+
+  const defaultParams = route.params || {}; 
+  const [modalVisible, setModalVisible] = useState(defaultParams.modalVisible || false); 
+  const [selectedRestaurant, setSelectedRestaurant] = useState(defaultParams.selectedRestaurant || null); 
+
+  useEffect(() => {
+    const { params } = route;
+    if (params && params.selectedRestaurant) {
+      setSelectedRestaurant(params.selectedRestaurant);
+      setModalVisible(params.modalVisible);
+    }
+  }, [route]);
 
   useEffect(() => {
     let unsubscribe;
