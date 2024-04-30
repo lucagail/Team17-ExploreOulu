@@ -35,8 +35,8 @@ export const signUp = async (nickname, email, password) => {
     })
   }
   
-  export const logout = async (email, password) => { 
-    await signOut(auth, email, password)
+  export const logout = async () => { 
+    await signOut(auth)
     .then(() => {
       console.log("Logout successful.");
     })
@@ -44,7 +44,7 @@ export const signUp = async (nickname, email, password) => {
       console.log("Login failed. ", error.message);
       Alert.alert("Login failed. ", error.message);
     })
-}
+  }
 
 export const updateEmailAddress = async (email) => {
   await updateEmail(auth.currentUser, email).
@@ -80,14 +80,12 @@ export const resetPassword = async (email) => {
   })  
 }
 
-//neu
-
 export const removeUser = async () => {
   try {
     console.log("Deleting user...");
-    // Überprüfen, ob der Benutzer angemeldet ist
-    if (auth.currentUser) {
-      await deleteUser(auth.currentUser);
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      await deleteUser(currentUser);
       console.log("User was removed.");
 
       console.log("Deleting hotels documents...");
@@ -119,55 +117,71 @@ export const removeUser = async () => {
 
 
 const deleteHotelsDocuments = async () => {
+  let unsubscribe; // Deklaration der unsubscribe-Funktion
   if (auth.currentUser) {
     try {
       console.log("Deleting hotels documents...");
       const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'hotels');
-      const querySnapshot = await getDocs(subColRef);
-      querySnapshot.forEach(doc => {
-        deleteDoc(doc.ref);
+      unsubscribe = onSnapshot(subColRef, (querySnapshot) => { // Definiere unsubscribe
+        querySnapshot.docs.forEach(doc => {
+          deleteDoc(doc.ref);
+        });
       });
     } catch (error) {
       console.error("Error deleting hotels documents:", error.message);
     }
   }
+  if (unsubscribe) { // Prüfe, ob unsubscribe definiert ist
+    unsubscribe(); // Rufe die unsubscribe-Funktion auf, wenn sie definiert ist
+  }
 };
 
+
 const deleteSightseeingDocuments = async () => {
+  let unsubscribe;
   if (auth.currentUser) {
     try {
       console.log("Deleting sightseeing documents...");
       const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'sightseeing');
-      const querySnapshot = await getDocs(subColRef);
-      querySnapshot.forEach(doc => {
-        deleteDoc(doc.ref);
+      unsubscribe = onSnapshot(subColRef, (querySnapshot) => { // Definiere unsubscribe
+        querySnapshot.docs.forEach(doc => {
+          deleteDoc(doc.ref);
       });
+    });
     } catch (error) {
       console.error("Error deleting sightseeing documents:", error.message);
     }
   }
+  if (unsubscribe) { 
+  unsubscribe();
+  }
 };
 
 const deleteRestaurantsDocuments = async () => {
+  let unsubscribe;
   if (auth.currentUser) {
     try {
       console.log("Deleting restaurants documents...");
       const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'restaurants');
-      const querySnapshot = await getDocs(subColRef);
-      querySnapshot.forEach(doc => {
-        deleteDoc(doc.ref);
+      unsubscribe = onSnapshot(subColRef, (querySnapshot) => { // Definiere unsubscribe
+        querySnapshot.docs.forEach(doc => {
+          deleteDoc(doc.ref);
+      });
       });
     } catch (error) {
       console.error("Error deleting restaurants documents:", error.message);
     }
   }
+  if (unsubscribe) { 
+    unsubscribe();
+    }
 };
 
 
 const deleteUserDocument = async () => {
-  console.log("Deleting user document...");
-  if (auth.currentUser) {
-    await deleteDoc(doc(db, USERS_REF, auth.currentUser.uid))
+  const currentUser = auth.currentUser;
+  if (currentUser) {
+    await deleteDoc(doc(db, USERS_REF, currentUser.uid))
       .then(() => {
         console.log("User document was removed.");
       }).catch((error) => {
@@ -176,6 +190,6 @@ const deleteUserDocument = async () => {
       });
   } else {
     console.log("No user logged in.");
-    Alert.alert("Account deleted.");
+    Alert.alert("No user logged in.");
   }
 };

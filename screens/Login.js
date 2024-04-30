@@ -48,7 +48,8 @@ export default function Login({ navigation }) {
 
   const handlePressLogout = () => {
     logout();
-  }
+    navigation.navigate('Logout');
+    };
 
   const handlePressResetPw = () => {
     if (!emailForgotPw) {
@@ -58,11 +59,11 @@ export default function Login({ navigation }) {
       resetPassword(emailForgotPw);
       setShowForgotPw(false);
     }
-  }
+  };
 
   const handlePressForgotPw = () => {
     setShowForgotPw(!showForgotPw);
-  }
+  };
 
   if (isLoggedIn) {
     return(
@@ -76,27 +77,21 @@ export default function Login({ navigation }) {
         <View style={styles.headerItem}>
           <Text style={styles.header}>Explore Oulu: Login</Text>
           <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
-            <MaterialIcons name="logout" size={24} color="black" />
+            <MaterialIcons name="logout" size={30} color="black" />
           </Pressable>
         </View>
         <Text style={styles.infoText}>
           You are logged in. Explore Oulu now!
         </Text>
-        <Pressable style={styles.buttonStyle}>
-          <Button
-            title="Home"
-            onPress={() => navigation.navigate('DrawerNavigator')}
-            color="#D6C9B6" />
-        </Pressable>
+        <TouchableOpacity onPress={() => navigation.navigate('DrawerNavigator')} style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
         <Text style={styles.infoText}>
           or go to your profile...
         </Text>
-        <Pressable style={styles.buttonStyle}>
-          <Button
-            title="Profile"
-            onPress={() => navigation.navigate('Profile')}
-            color="#D6C9B6" />
-        </Pressable>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Profile</Text>
+        </TouchableOpacity>
         </ScrollView>
         </KeyboardAvoidingView>
         </SafeAreaView>    
@@ -131,18 +126,13 @@ export default function Login({ navigation }) {
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
         />
-        <Pressable style={styles.buttonStyle}>
-          <Button 
-            title="Login"
-            onPress={handlePressLogin}
-            color= '#D6C9B6'
-           />
-        </Pressable>
-        <Pressable>
-          <Text 
-            style={styles.linkText}
-            onPress={handlePressForgotPw}>Forgot password?</Text>
-        </Pressable>
+        <TouchableOpacity onPress={handlePressLogin} style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handlePressForgotPw}>
+          <Text style={styles.linkText} >Forgot password?</Text>
+        </TouchableOpacity>
+       
         
        
         { showForgotPw &&
@@ -155,12 +145,9 @@ export default function Login({ navigation }) {
               keyboardType="email-address"
               autoCapitalize="none"
             />
-            <Pressable style={styles.buttonStyle}>
-              <Button
-                title="Reset password"
-                onPress={() => handlePressResetPw()}
-                color= '#D6C9B6'/>
-            </Pressable>
+            <TouchableOpacity onPress={() => handlePressResetPw()} style={styles.buttonStyle}>
+              <Text style={styles.buttonText}>Reset password</Text>
+            </TouchableOpacity> 
             <Text style={styles.passwordInfoText}>
               Be sure to check your spam folder after resetting!
             </Text>
@@ -174,7 +161,7 @@ export default function Login({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.linkText}>Sign up now!</Text>
         </TouchableOpacity>
-      </View>
+        </View>
       </SafeAreaView>
 
     );

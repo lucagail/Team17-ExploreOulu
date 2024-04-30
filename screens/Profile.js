@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Text, View, Pressable, Button, TextInput, Alert, SafeAreaView, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { Text, View, Pressable, Button, TextInput, Alert, SafeAreaView, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db, USERS_REF } from '../firebase/Config.js';
 import { changePassword, logout, removeUser } from '../components/Auth.js';
@@ -55,10 +55,10 @@ export default function MyAccount({ navigation }) {
   
     const handlePressLogout = () => {
       logout();
-      navigation.navigate('Login');
+      navigation.navigate('Logout');
     };
   
-    const handlePressChangePw = () => {
+    const handlePressChangePw = async () => {
       if (!password) {
         Alert.alert('Password is required.');
       } else if (!confirmPassword) {
@@ -69,9 +69,17 @@ export default function MyAccount({ navigation }) {
       } else {
         setPassword('');
         setConfirmPassword('');
-        changePassword(password, navigation);
+        try {
+          await changePassword(password, navigation);
+        } catch (error) {
+          if (error.code === 'auth/requires-recent-login') {
+            Alert.alert('You must log in again before changing your password.');
+          } else {
+            Alert.alert('Password change error: ' + error.message);
+          }
+        }
       }
-    };
+    };    
   
     const handlePressDelete = () => {
       if (confirmDelete !== "DELETE") {
@@ -98,19 +106,13 @@ export default function MyAccount({ navigation }) {
             <Text style={styles.header}>Explore Oulu: My Account</Text>
           </View>
           <Text style={styles.infoText}>Login to your account</Text>
-          <Pressable style={styles.buttonStyle}>
-            <Button
-              title="Login"
-              onPress={() => navigation.navigate('Login')} 
-              color= '#D6C9B6'/>
-          </Pressable>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.buttonStyle}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
           <Text style={styles.infoText}>Not having account yet?</Text>
-          <Pressable style={styles.buttonStyle}>
-            <Button
-              title="Register"
-              onPress={() => navigation.navigate('Register')}
-              color= '#D6C9B6' />
-          </Pressable>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.buttonStyle}>
+            <Text style={styles.buttonText}>Register</Text>
+          </TouchableOpacity>
           </ScrollView>
           </KeyboardAvoidingView>
         </SafeAreaView>
@@ -128,7 +130,7 @@ export default function MyAccount({ navigation }) {
           <View style={styles.headerItem}>
             <Text style={styles.header}>Explore Oulu: My Account</Text>
             <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
-              <MaterialIcons name="logout" size={24} color="black" />
+              <MaterialIcons name="logout" size={30} color="black" />
             </Pressable>
           </View>
           <Text style={styles.myAccountSubheader}>Update account</Text>
@@ -138,13 +140,9 @@ export default function MyAccount({ navigation }) {
             style={styles.myAccountTextInput}
             onChangeText={setNickname}
           />
-          <View style={styles.buttonStyle}>
-            <Button 
-              title="Update"
-              onPress={() => updateUserData()}
-              color= '#D6C9B6'
-            />
-          </View>
+          <TouchableOpacity onPress={() => updateUserData()} style={styles.buttonStyle}>
+            <Text style={styles.buttonText}>Update</Text>
+          </TouchableOpacity>
           <Text style={styles.myAccountSubheader}>Change password</Text>
           <TextInput
             style={styles.textInput}
@@ -160,12 +158,9 @@ export default function MyAccount({ navigation }) {
             onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
             secureTextEntry={true}
           />
-          <View style={styles.buttonStyle}>
-            <Button 
-              title="Change password"
-              onPress={handlePressChangePw}
-              color= '#D6C9B6' />
-          </View>
+          <TouchableOpacity onPress={handlePressChangePw} style={styles.buttonStyle}>
+            <Text style={styles.buttonText}>Change password</Text>
+          </TouchableOpacity>
           <Text style={styles.myAccountSubheader}>Delete account</Text>
         <TextInput
           style={styles.textInput}
@@ -174,12 +169,9 @@ export default function MyAccount({ navigation }) {
           onChangeText={(confirmDelete) => setConfirmDelete(confirmDelete)}
           autoCapitalize="characters"
         />
-        <View style={styles.buttonStyle}>
-          <Button
-            title="Delete account"
-            color="red"
-            onPress={() => handlePressDelete()} />
-        </View>
+         <TouchableOpacity onPress={() => handlePressDelete()} style={styles.buttonStyle}>
+            <Text style={styles.deleteButtonText}>Delete account</Text>
+          </TouchableOpacity>
         <Text style={styles.infoText}>
           Your data will be removed from the database!
         </Text>

@@ -61,7 +61,9 @@ export default function Restaurants() {
           id: restaurant.id,
           name: restaurant.name,
           location: restaurant.location,
-          image: restaurant.image
+          image: restaurant.image,
+          description: restaurant.description,
+          price: restaurant.price
         });
         console.log("Restaurant added to favorites");
       } else {
@@ -122,7 +124,7 @@ export default function Restaurants() {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={20} color="#213A5C" />
+          <Ionicons name="arrow-back" size={25} color="#213A5C" />
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>
@@ -188,12 +190,12 @@ export default function Restaurants() {
                 >
                 <Ionicons
                   name={isFavorite(restaurant.id) ? "heart" : "heart-outline"}
-                  size={30}
+                  size={32}
                   color={isFavorite(restaurant.id) ? "red" : "black"}
                 />
                 </TouchableOpacity>
               <TouchableOpacity onPress={() => openModal(restaurant)} >
-                <Ionicons name="add-circle" size={30} color="#213A5C" />
+                <Ionicons name="add-circle" size={32} color="#213A5C" />
               </TouchableOpacity>
               </View>
           </Card.Content>

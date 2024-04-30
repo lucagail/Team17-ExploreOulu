@@ -61,6 +61,8 @@ export default function Hotels() {
           id: hotel.id,
           name: hotel.name,
           location: hotel.location,
+          description: hotel.description,
+          url: hotel.url,
           image: hotel.image
         });
         console.log("Hotel added to favorites");
@@ -115,7 +117,7 @@ export default function Hotels() {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={20} color="#213A5C" />
+          <Ionicons name="arrow-back" size={25} color="#213A5C" />
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>
@@ -173,10 +175,10 @@ export default function Hotels() {
                       }
                     }}
                     >
-                    <Ionicons name={isFavorite(card.id) ? "heart" : "heart-outline"} size={30} color={isFavorite(card.id) ? "red" : "black"} />
+                    <Ionicons name={isFavorite(card.id) ? "heart" : "heart-outline"} size={32} color={isFavorite(card.id) ? "red" : "black"} />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => openModal(card)}>
-                  <Ionicons name="add-circle" size={30} color="#213A5C" />
+                  <Ionicons name="add-circle" size={32} color="#213A5C" />
                     </TouchableOpacity>
                 </View>
               </Card.Content>

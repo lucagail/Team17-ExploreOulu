@@ -18,7 +18,7 @@ return (
   <ScrollView style={styles.container}>
     <View style={styles.header}>
       <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-        <Ionicons name="arrow-back" size={20} color="#213A5C" />
+        <Ionicons name="arrow-back" size={25} color="#213A5C" />
         <Text style={styles.backText}>Back</Text>
       </TouchableOpacity>
     </View>
@@ -28,7 +28,7 @@ return (
     <View style={styles.imageSection}>
       <View style={[styles.sliderContainer, { height: width / 2 }]}>
         <Swiper style={styles.wrapper} showsButtons={true} activeDotColor="#D6C9B6" dotColor="#213A5C" 
-                   prevButton={<Ionicons name="arrow-back" size={30} color="#213A5C" />} nextButton={<Ionicons name="arrow-forward" size={30} color="#213A5C"
+                   prevButton={<Ionicons name="arrow-back" size={35} color="#213A5C" />} nextButton={<Ionicons name="arrow-forward" size={35} color="#213A5C"
                    />} autoplay={true}>
           <View style={styles.slide}>
           <Image source={require('../images/AboutOulu2.jpeg')} style={styles.image} />

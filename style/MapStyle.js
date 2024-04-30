@@ -43,7 +43,7 @@ export default StyleSheet.create({
   },
   iconContainer: {
     position: 'absolute',
-    top: 60,
+    top: 15,
     right: 10,
     backgroundColor: '#213A5C',
     borderRadius: 20,
@@ -52,12 +52,12 @@ export default StyleSheet.create({
   },
   filterContainer: {
     position: 'absolute',
-    top: 10, 
+    bottom: 50, 
     alignSelf: 'center',
     flexDirection: 'row',
     backgroundColor: '#213A5C',
     borderRadius: 10,
-    padding: 5,
+    padding: 10,
     elevation: 5,
     zIndex: 1,
   },
@@ -67,12 +67,15 @@ export default StyleSheet.create({
   activeFilterButton: {
     backgroundColor: '#D6C9B6',
     borderRadius: 10,
+    paddingHorizontal: 10,
   },
   filterButtonText: {
-    fontSize: isSmallDevice ? 14 : 16,
+    fontSize: isSmallDevice ? 16 : 18,
     color: '#D6C9B6',
   },
   activeFilterButtonText: {
+    fontSize: isSmallDevice ? 16 : 18,
     color: '#213A5C',
+    fontWeight: 'bold',
   }
 });

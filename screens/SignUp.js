@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Alert, Button, Pressable, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Alert, Button, Pressable, SafeAreaView, TouchableOpacity } from 'react-native';
 import { logout, signUp } from '../components/Auth.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/Config.js';
@@ -60,7 +60,7 @@ export default function SignUp({ navigation }) {
     return(
       <SafeAreaView style={styles.container}>
         <View style={styles.headerItem}>
-          <Text style={styles.header}>Explore: Register</Text>
+          <Text style={styles.header}>Explore Oulu: Register</Text>
           <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
             <MaterialIcons name="logout" size={24} color="black" />
           </Pressable>
@@ -68,19 +68,15 @@ export default function SignUp({ navigation }) {
         <Text style={styles.infoText}>
           You are logged in. Go to home...
         </Text>
-        <Pressable style={styles.buttonStyle}>
-          <Button
-            title="Home"
-            onPress={() => navigation.navigate('DrawerNavigator')} />
-        </Pressable>
+        <TouchableOpacity onPress={() => navigation.navigate('DrawerNavigator')} style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
         <Text style={styles.infoText}>
           Or to your account...
         </Text>
-        <Pressable style={styles.buttonStyle}>
-          <Button
-            title="Profile"
-            onPress={() => navigation.navigate('Profile')} />
-        </Pressable>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Profile</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     )
   }
@@ -119,19 +115,13 @@ export default function SignUp({ navigation }) {
           onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
           secureTextEntry={true}
         />
-        <Pressable style={styles.buttonStyle}>
-          <Button 
-            title="Register"
-            onPress={handlePressRegister}
-            color= '#D6C9B6' />
-        </Pressable>
+        <TouchableOpacity onPress={handlePressRegister} style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
         <Text style={styles.infoText}>Already have an account?</Text>
-        <Pressable style={styles.buttonStyle}>
-          <Button
-            title="Login"
-            onPress={() => navigation.navigate('Login')}
-            color= '#D6C9B6' />
-        </Pressable>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }

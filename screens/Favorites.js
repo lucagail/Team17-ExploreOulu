@@ -14,6 +14,9 @@ export default function Favorites() {
   const [favoriteSightseeing, setFavoriteSightseeing] = useState([]);
   const navigation = useNavigation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedHotel, setSelectedHotel] = useState(null);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
 
   const handleBackPress = () => {
@@ -77,15 +80,15 @@ export default function Favorites() {
   }, []);
 
   const handleHotelPress = (hotel) => {
-    navigation.navigate('Hotels', { selectedHotel: hotel });
+    navigation.navigate('Hotels', { modalVisible: true, selectedHotel: hotel });
   };
   
   const handleRestaurantPress = (restaurant) => {
-    navigation.navigate('Restaurants', { selectedRestaurant: restaurant });
+    navigation.navigate('Restaurants', { modalVisible: true, selectedRestaurant: restaurant });
   };
   
   const handleSightseeingPress = (sightseeing) => {
-    navigation.navigate('Sightseeing', { selectedSightseeing: sightseeing });
+    navigation.navigate('Sightseeing', { modalVisible: true, selectedCard: sightseeing });
   };
 
   const removeFromFavorites = async (itemId, itemType) => {
@@ -126,7 +129,7 @@ export default function Favorites() {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={20} color="#213A5C" />
+          <Ionicons name="arrow-back" size={25} color="#213A5C" />
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>

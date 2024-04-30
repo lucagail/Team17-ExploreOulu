@@ -57,7 +57,7 @@ export default StyleSheet.create({
         marginHorizontal: 20
       },
       categoryButton: {
-        paddingVertical: 8,
+        paddingVertical: 12,
         paddingHorizontal: 20,
         borderRadius: 20,
         borderWidth: 1,

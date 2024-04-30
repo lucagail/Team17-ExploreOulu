@@ -60,7 +60,8 @@ export default function Sightseeing() {
           id: sightseeing.id,
           name: sightseeing.name,
           location: sightseeing.location,
-          image: sightseeing.image
+          image: sightseeing.image,
+          description: sightseeing.description
         });
         console.log("Sightseeing added to favorites");
       } else {
@@ -110,7 +111,7 @@ export default function Sightseeing() {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={20} color="#213A5C" />
+          <Ionicons name="arrow-back" size={25} color="#213A5C" />
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>
@@ -165,12 +166,12 @@ export default function Sightseeing() {
                 >
                 <Ionicons
                   name={isFavorite(sightseeing.id) ? "heart" : "heart-outline"}
-                  size={30}
+                  size={32}
                   color={isFavorite(sightseeing.id) ? "red" : "black"}
                 />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => openModal(sightseeing)} >
-                <Ionicons name="add-circle" size={30} color="#213A5C" />
+                <Ionicons name="add-circle" size={32} color="#213A5C" />
               </TouchableOpacity>
               </View>
             </Card.Content>

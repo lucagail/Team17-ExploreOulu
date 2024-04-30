@@ -183,6 +183,7 @@ export default function Map() {
             (filter === null || filter === 'sightseeing') && (
               <Marker
                 pinColor='#213A5C'
+                color='#213A5C'
                 key={index}
                 coordinate={spot.coordinates}
                 title={spot.name}
@@ -202,9 +203,11 @@ export default function Map() {
             )
           ))}
         </MapView>
+        {Platform.OS === 'ios' && (
         <TouchableOpacity style={styles.iconContainer} onPress={handleShowUserLocation}>
-          <Ionicons name="locate" size={24} color="#D6C9B6" />
+         <Ionicons name="locate" size={28} color="#D6C9B6" />
         </TouchableOpacity>
+        )}
       </SafeAreaView>
     );
   }

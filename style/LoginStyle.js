@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -6,6 +6,13 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+    marginTop: StatusBar.currentHeight,  
+  },
+  image: {
+    width: width * 0.3,
+    height: width * 0.3,
+    borderRadius: 10,
+    marginTop: 30
   },
   headerItem: {
     flexDirection: 'row',
@@ -20,14 +27,15 @@ export default StyleSheet.create({
   infoText: {
     fontWeight: 'bold',
     marginBottom: 5,
-    fontSize: 16,
+    fontSize: 18,
     paddingHorizontal: 20
   },
   passwordInfoText: {
     fontWeight: 'bold',
     marginTop: 5,
     marginBottom: 5,
-    fontSize: 14,
+    fontSize: 18,
+    textAlign: 'center'
   },
   signupContainer: {
     position: 'absolute',
@@ -39,16 +47,22 @@ export default StyleSheet.create({
   },
   signupText: {
     marginRight: 5,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 18
   },
   buttonStyle: {
+    alignItems: 'center',
     backgroundColor: '#213A5C',
-    paddingVertical: 10,
+    paddingVertical: 20,
     paddingHorizontal: 15,
     borderRadius: 5,
     marginTop: 15,
     marginBottom: 15,
     width: width * 0.9,
+  },
+  buttonText: {
+    color: '#D6C9B6',
+    fontSize: 18,
   },
   textInput: {
     borderWidth: 1,
@@ -58,7 +72,7 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginTop: 10,
-    fontSize: 16
+    fontSize: 18
   },
   logoutIcon: {
     marginTop: 10,
@@ -67,12 +81,7 @@ export default StyleSheet.create({
   linkText: {
     textDecorationLine: 'underline',
     fontWeight: 'bold',
-    color: '#213A5C'
-  },
-  image: {
-    width: width * 0.3,
-    height: width * 0.3,
-    borderRadius: 10,
-    margin: 10,
-  },
+    color: '#213A5C',
+    fontSize: 18
+  }
 });

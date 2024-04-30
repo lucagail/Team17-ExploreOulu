@@ -40,7 +40,7 @@ export default StyleSheet.create({
     paddingVertical: 15,
     marginBottom: 15,
     borderRadius: 10,
-    elevation: 3,
+    backgroundColor: '#ffffff',
   },
   sectionText: {
     fontSize: 16,
@@ -53,7 +53,6 @@ export default StyleSheet.create({
     paddingVertical: 15,
     marginBottom: 15,
     borderRadius: 10,
-    elevation: 3,
   },
   sliderContainer: {
     borderRadius: 10,

@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -7,10 +7,12 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
+    marginTop: StatusBar.currentHeight, 
   },
   headerItem: {
     flexDirection: 'row',
-    marginVertical: 20,
+    marginTop: 30,
+    marginBottom: 10,
     alignItems: 'center',
   },
   header: {
@@ -25,13 +27,18 @@ export default StyleSheet.create({
     paddingHorizontal: 20
   },
   buttonStyle: {
+    alignItems: 'center',
     backgroundColor: '#213A5C',
-    paddingVertical: 10,
+    paddingVertical: 20,
     paddingHorizontal: 15,
     borderRadius: 5,
     marginTop: 15,
     marginBottom: 15,
     width: width * 0.9,
+  },
+  buttonText: {
+    color: '#D6C9B6',
+    fontSize: 18,
   },
   textInput: {
     borderWidth: 1,

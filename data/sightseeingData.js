@@ -44,7 +44,7 @@ export const sightseeing = [
       "name": "Castle",
       "description": "North of the Hupisaaret City Park, the Oulujoki river flows through a labyrinth of smaller islands, all connected by bridges to each other and to the city. In the midst of the river section called Kosikeskus lies the small island of Linnansaari, where one can see the scant remains of the castle destroyed in the 18th century. It was built in 1590 on the island of Linnansaari for protection against the Russians and renewed under Karl IX.",
       "location": "Linnansaari 1, 90100 Oulu",
-      "image": require("../images/Kauppahalli2.jpeg"),
+      "image": require("../images/Castle.png"),
       "coordinates": { "latitude": 65.01738, "longitude": 25.46808 } 
     }
     ]
