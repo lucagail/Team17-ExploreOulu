@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Modal, Image, TouchableOpacity, Linking } from 'react-native';
 import { Card, Title, Text, Button } from 'react-native-paper';
-import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { db, USERS_REF, auth } from '../firebase/Config.js';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/HotelsStyle';
-import { doc, setDoc, deleteDoc, getDocs, collection, onSnapshot, query } from "firebase/firestore";
+import { doc, setDoc, deleteDoc, getDocs, collection, onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
 import { hotels } from "../data/hotelsData.js";
 

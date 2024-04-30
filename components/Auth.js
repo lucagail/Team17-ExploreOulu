@@ -7,7 +7,7 @@ import {
   signOut,
   updateEmail,
   updatePassword } from 'firebase/auth';
-import { collection, deleteDoc, doc, setDoc, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { auth, db, USERS_REF } from '../firebase/Config.js';
 
 export const signUp = async (nickname, email, password) => {
@@ -117,12 +117,12 @@ export const removeUser = async () => {
 
 
 const deleteHotelsDocuments = async () => {
-  let unsubscribe; // Deklaration der unsubscribe-Funktion
+  let unsubscribe; 
   if (auth.currentUser) {
     try {
       console.log("Deleting hotels documents...");
       const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'hotels');
-      unsubscribe = onSnapshot(subColRef, (querySnapshot) => { // Definiere unsubscribe
+      unsubscribe = onSnapshot(subColRef, (querySnapshot) => { 
         querySnapshot.docs.forEach(doc => {
           deleteDoc(doc.ref);
         });
@@ -131,8 +131,8 @@ const deleteHotelsDocuments = async () => {
       console.error("Error deleting hotels documents:", error.message);
     }
   }
-  if (unsubscribe) { // Prüfe, ob unsubscribe definiert ist
-    unsubscribe(); // Rufe die unsubscribe-Funktion auf, wenn sie definiert ist
+  if (unsubscribe) { 
+    unsubscribe(); 
   }
 };
 
@@ -143,7 +143,7 @@ const deleteSightseeingDocuments = async () => {
     try {
       console.log("Deleting sightseeing documents...");
       const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'sightseeing');
-      unsubscribe = onSnapshot(subColRef, (querySnapshot) => { // Definiere unsubscribe
+      unsubscribe = onSnapshot(subColRef, (querySnapshot) => {
         querySnapshot.docs.forEach(doc => {
           deleteDoc(doc.ref);
       });
@@ -163,7 +163,7 @@ const deleteRestaurantsDocuments = async () => {
     try {
       console.log("Deleting restaurants documents...");
       const subColRef = collection(db, USERS_REF, auth.currentUser.uid, 'restaurants');
-      unsubscribe = onSnapshot(subColRef, (querySnapshot) => { // Definiere unsubscribe
+      unsubscribe = onSnapshot(subColRef, (querySnapshot) => { 
         querySnapshot.docs.forEach(doc => {
           deleteDoc(doc.ref);
       });

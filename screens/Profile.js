@@ -97,7 +97,7 @@ export default function MyAccount({ navigation }) {
       return (
         <SafeAreaView style={styles.container}>
           <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjust behavior based on platform
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
                 style={{ flex: 1}}
                 keyboardVerticalOffset={100}
             >
@@ -122,7 +122,7 @@ export default function MyAccount({ navigation }) {
       return (
         <SafeAreaView style={styles.container}>
           <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjust behavior based on platform
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
                 style={{ flex: 1 }}
                 keyboardVerticalOffset={100}
             >

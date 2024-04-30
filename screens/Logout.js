@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Alert, View } from 'react-native';
-import { logout } from '../components/Auth'; // Importiere die logout Funktion
+import { logout } from '../components/Auth'; 
 
 const Logout = ({ navigation }) => {
   useEffect(() => {

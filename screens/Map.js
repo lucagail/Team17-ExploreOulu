@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Linking, Platform, TouchableOpacity, SafeAreaView, ActivityIndicator, Modal } from 'react-native';
+import { Text, View, Linking, Platform, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
-import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/MapStyle';
 import { hotels } from "../data/hotelsData.js";
 import {restaurants} from "../data/restaurantsData.js";
 import { sightseeing } from "../data/sightseeingData.js";
-import Hotels from './Hotels';
 import { useNavigation } from '@react-navigation/native';
 
 const INITIAL_LATITUDE = 65.0121;

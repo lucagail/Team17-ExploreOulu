@@ -1,14 +1,12 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/HomeStyle';
 
 
 export default function Home() {
   
   const navigation = useNavigation();
-
 
   return (
     <View style={styles.container}>

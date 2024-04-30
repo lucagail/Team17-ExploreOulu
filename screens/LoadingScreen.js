@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Image, Dimensions, Text, Animated } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../style/LoadingScreenStyle';
 

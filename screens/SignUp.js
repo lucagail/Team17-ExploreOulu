@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Alert, Button, Pressable, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Alert, Pressable, SafeAreaView, TouchableOpacity } from 'react-native';
 import { logout, signUp } from '../components/Auth.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/Config.js';
