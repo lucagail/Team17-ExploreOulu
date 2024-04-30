@@ -105,8 +105,8 @@ export const removeUser = async () => {
       console.log("User document deleted.");
 
     } else {
-      console.log("No user logged in.");
-      Alert.alert("No user logged in.");
+      console.log("The account has been deleted.");
+      Alert.alert("The account has been deleted.");
     }
   } catch (error) {
     console.log("Error removing user:", error.message);
